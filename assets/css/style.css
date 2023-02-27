@@ -1,0 +1,195 @@
+:root {
+--dark-black: #002b36;
+--black: #073642;
+--dark-grey: #586e75;
+--grey: #657b83;
+--light-grey: #93a1a1; 
+--dark-white: #eee8d5;
+--white: #fdf6e3;
+--yellow: #b58900;
+--orange: #cb4b16;
+--red: #dc322f;
+--magenta: #d33682;
+--violet: #6c71c4;
+--blue: #268bd2;
+--cyan: #2aa198;
+--green: #859900;
+
+--box-border-color: var(--dark-white);
+--box-heading-color: var(--white);
+}
+
+body {
+  font-family: "Noto Sans Mono";
+  background-color: var(--black);
+}
+
+h1, h2, h3,
+h4, h5, h6 {
+  letter-spacing: 0.02em;
+}
+
+
+/* Box title */
+.box > h2 {
+  font-size: 30px;
+  background-color: var(--black);
+  color: var(--light-grey);
+  font-weight: 900;
+  padding: 11px 17px 0px 17px;
+  line-height: 36px;
+  text-align: center;
+}
+
+.box > div {
+  position: relative;
+  background-color: var(--dark-black);
+  margin: 20px;
+  border-radius: 17px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: var(--dark-grey);
+}
+
+.box > div:last-of-type {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: 2px;
+  bottom: 2px;
+  pointer-events: none;
+}
+
+/* Home */
+div#home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+div#home > section#presentation {
+  width: 49.5vw;
+  min-width: 300px;
+}
+
+div#home > section#collaboration {
+  width: 49.5vw;
+  min-width: 450px;
+  max-width: 650px;
+}
+
+div#home > section#works {
+  width: 100vw;
+}
+
+/* Book an appointment box */
+div#home article#book-an-appointment nav {
+  display: none;
+  background-color: var(--dark-grey);
+  align-items: center;
+  border-top-left-radius: 17px;
+  border-top-right-radius: 17px;
+  overflow: hidden;
+}
+
+div#home article#book-an-appointment nav button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter 250ms ease-in-out;
+  padding: 6px 15px 6px 1px;
+  color: var(--black);
+  font-size: 18px;
+  font-weight: 500;
+  background-color: var(--dark-grey);
+}
+
+div#home article#book-an-appointment nav button:hover {
+  filter: brightness(1.1);
+}
+
+div#home article#book-an-appointment ul#choices {
+  overflow: hidden;
+  border-radius: 17px;
+}
+
+div#home article#book-an-appointment ul#choices button {
+  display: flex;
+  flex-direction: column;
+  transition: background-color 250ms ease-in-out, padding-left 250ms ease-in-out;
+  background-color: var(--dark-black);
+  padding: 16px 20px 20px 20px;
+}
+
+div#home article#book-an-appointment ul#choices li:last-of-type button {
+  border-bottom-right-radius: 17px;
+  border-bottom-left-radius: 17px;
+}
+
+div#home article#book-an-appointment ul#choices button:hover {
+  background-color: var(--black);
+  padding-left: 30px;
+}
+
+div#home article#book-an-appointment ul#choices button h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--dark-white);
+  font-weight: 1000;
+  display: flex;
+  justify-content: space-between;
+}
+
+div#home article#book-an-appointment ul#choices button h3 div {
+  margin-top: -1px;
+}
+
+div#home article#book-an-appointment ul#choices button h3 span {
+  padding: 2px 6px 2px 6px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  font-size: 14px;
+  color: var(--white);
+  opacity: 0.8;
+  font-weight: 600;
+  margin-top: -10px;
+}
+
+div#home article#book-an-appointment ul#choices button h3 span.price {
+  background-color: var(--blue);
+}
+
+div#home article#book-an-appointment ul#choices button h3 span.duration {
+  background-color: var(--orange);
+}
+
+div#home article#book-an-appointment ul#choices button p {
+  padding-top: 12px;
+  padding-left: 10px;
+  color: var(--dark-white);  
+}
+
+div#home article#book-an-appointment ul#choices hr {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: var(--dark-grey);
+}
+
+div#home article#book-an-appointment ul#choices hr:first-of-type {
+  margin-bottom: 2px;
+}
+
+div#home article#book-an-appointment ul#calendars {
+  display: none;
+}
+
+div#home article#book-an-appointment ul#calendars > li {
+  width: 0px;
+  height: 0px;
+  visibility: hidden;
+  overflow:scroll
+}

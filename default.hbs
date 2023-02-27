@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="{{@site.locale}}">
+  <head>
+      <title>{{meta_title}}</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <link rel="stylesheet" href="{{asset "css/reset.css"}}">
+      <link rel="stylesheet" href="{{asset "css/notosansmono.css"}}">
+      <link rel="stylesheet" href="{{asset "css/style.css"}}">
+
+      
+      {{ghost_head}} {{!-- Head code injection for, meta tags, scripts, etc. --}}
+  </head>
+
+  <body class="{{body_class}}">
+
+      {{!-- Header --}}
+      <!--<header>
+        <h1>{{meta_title}}</h1>
+      </header>-->
+      {{!-- End of header --}}
+
+      {{!-- Main --}}
+      <main>
+        {{{body}}} {{!-- Inserted here by sub-templates (index.hbs, post.hbs, etc.) --}}
+      </main>
+      {{!-- End of mainy --}}
+
+      {{!-- Footer content goes here --}}
+      <footer>
+        <p>I'm footer</p>
+      </footer>
+      {{!-- End of footer --}}
+
+      {{ghost_foot}} {{!-- Footer code injection for additional scripts, etc. --}}
+  </body>
+  
