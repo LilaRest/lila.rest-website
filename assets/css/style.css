@@ -1,6 +1,7 @@
 :root {
 --dark-black: #002b36;
 --black: #073642;
+/* --black: #134b5a; */
 --dark-grey: #586e75;
 --grey: #657b83;
 --light-grey: #93a1a1; 
@@ -19,6 +20,10 @@
 --box-heading-color: var(--white);
 }
 
+html {
+  filter: brightness(88%) contrast(88%);
+}
+
 body {
   font-family: "Noto Sans Mono";
   background-color: var(--black);
@@ -27,8 +32,13 @@ body {
 h1, h2, h3,
 h4, h5, h6 {
   letter-spacing: 0.02em;
+  font-weight: 1000;
 }
 
+/* Box */
+.box {
+  margin: 20px;
+}
 
 /* Box title */
 .box > h2 {
@@ -36,29 +46,76 @@ h4, h5, h6 {
   background-color: var(--black);
   color: var(--light-grey);
   font-weight: 900;
-  padding: 11px 17px 0px 17px;
+  padding: 11px 17px 15px 17px;
   line-height: 36px;
   text-align: center;
 }
 
+/* Box container */
 .box > div {
   position: relative;
-  background-color: var(--dark-black);
-  margin: 20px;
-  border-radius: 17px;
+}
+
+.box > div > div {
+  border-radius: 15px;
   border-style: solid;
-  border-width: 2px;
+  border-width: 4px;
   border-color: var(--dark-grey);
 }
 
-.box > div:last-of-type {
-  content: "";
+/* Box container > Overlay */
+.box > div > div.box-overlay {
   position: absolute;
-  top: -6px;
-  left: -6px;
-  right: 2px;
-  bottom: 2px;
+  right: 0px;
+  bottom: 0px;
+  top: 0px;
+  left: 0px;
+  background-color: transparent;
+  z-index: 10;
   pointer-events: none;
+  transition: loader 300ms ease-in-out;
+}
+
+@keyframes loader {
+  0%   { background-position:  100%; }
+  100% { background-position: -100%; }
+}
+
+.box > div > div.box-overlay.loader {
+  animation: 0.75s ease-in-out infinite loader;
+  background: linear-gradient(100deg, var(--dark-black) 0%, var(--black) 40%, var(--black) 60%, var(--dark-black) 100%);
+  background-size: 200%;
+}
+
+.box > div > div.box-overlay > button {
+  display: none;
+  position: absolute;
+  bottom: -4px;
+  left: -4px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 0;
+  transition: filter 250ms ease-in-out;
+  font-size: 16px;
+  background-color: var(--dark-grey);
+  pointer-events: all;
+  padding: 7px 15px 7px 15px;
+  font-weight: 600;
+  color: var(--dark-black);
+}
+
+.box > div > div.box-overlay > button:hover {
+  filter: brightness(1.2);
+}
+
+/* Box container > Content */
+.box > div > div.box-content {
+
+  transition-duration: 300ms;
+  overflow: hidden;
+  background-color: var(--dark-black);
 }
 
 /* Home */
@@ -76,8 +133,8 @@ div#home > section#presentation {
 
 div#home > section#collaboration {
   width: 49.5vw;
-  min-width: 450px;
-  max-width: 650px;
+  min-width:658px;
+  max-width:658px;
 }
 
 div#home > section#works {
@@ -85,34 +142,8 @@ div#home > section#works {
 }
 
 /* Book an appointment box */
-div#home article#book-an-appointment nav {
-  display: none;
-  background-color: var(--dark-grey);
-  align-items: center;
-  border-top-left-radius: 17px;
-  border-top-right-radius: 17px;
-  overflow: hidden;
-}
-
-div#home article#book-an-appointment nav button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: filter 250ms ease-in-out;
-  padding: 6px 15px 6px 1px;
-  color: var(--black);
-  font-size: 18px;
-  font-weight: 500;
-  background-color: var(--dark-grey);
-}
-
-div#home article#book-an-appointment nav button:hover {
-  filter: brightness(1.1);
-}
-
 div#home article#book-an-appointment ul#choices {
   overflow: hidden;
-  border-radius: 17px;
 }
 
 div#home article#book-an-appointment ul#choices button {
@@ -121,11 +152,7 @@ div#home article#book-an-appointment ul#choices button {
   transition: background-color 250ms ease-in-out, padding-left 250ms ease-in-out;
   background-color: var(--dark-black);
   padding: 16px 20px 20px 20px;
-}
-
-div#home article#book-an-appointment ul#choices li:last-of-type button {
-  border-bottom-right-radius: 17px;
-  border-bottom-left-radius: 17px;
+  z-index: 10;
 }
 
 div#home article#book-an-appointment ul#choices button:hover {
@@ -136,7 +163,7 @@ div#home article#book-an-appointment ul#choices button:hover {
 div#home article#book-an-appointment ul#choices button h3 {
   font-size: 20px;
   font-weight: 700;
-  color: var(--dark-white);
+  color: var(--light-grey);
   font-weight: 1000;
   display: flex;
   justify-content: space-between;
@@ -179,17 +206,31 @@ div#home article#book-an-appointment ul#choices hr {
   border-top-color: var(--dark-grey);
 }
 
-div#home article#book-an-appointment ul#choices hr:first-of-type {
-  margin-bottom: 2px;
-}
-
 div#home article#book-an-appointment ul#calendars {
   display: none;
 }
+
 
 div#home article#book-an-appointment ul#calendars > li {
   width: 0px;
   height: 0px;
   visibility: hidden;
-  overflow:scroll
+  max-width:658px;
+  border-bottom-right-radius: 15px;
+  overflow: hidden;
+  border-bottom-right-radius: 15px;
+}
+
+div#home article#book-an-appointment ul#calendars > li > cal-inline {
+  justify-content: center;
+  align-items: center;
+  margin-top: -5px;
+  margin-bottom: -4px;
+  /* margin-left: -2px; */
+  /* margin-right: -2px; */
+}
+
+div#home article#book-an-appointment ul#calendars > li > cal-inline > iframe {
+  min-width: 850px; /* If the iframe is smaller than 850px the calendar hour selector will wrap */
+  filter: opacity(90%);
 }

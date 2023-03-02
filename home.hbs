@@ -2,6 +2,7 @@
 {{!-- The tag above means: insert everything in this file into the {body} of default.hbs template --}}
 
 <div id="home">
+  
   {{!-- <section id="presentation"> --}}
     {{!-- <h2>I'm <span>Lila REST</span> !</h2> --}}
     {{!-- <img src="{{asset "images/pp.jpg"}}"/> --}}
@@ -54,49 +55,47 @@
       <h2>Book an appointment</h2>
 
       <div>
-        <nav>
+        <div class="box-overlay">
           <button>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28"><path fill="none" d="M0 0h24v24H0z"/><path fill="#002b36" d="M8 12l6-6v12z"/></svg>
-            <span>Back</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path fill="none" d="M0 0h24v24H0z"/><path fill="#002b36" d="M5.828 7l2.536 2.536L6.95 10.95 2 6l4.95-4.95 1.414 1.414L5.828 5H13a8 8 0 1 1 0 16H4v-2h9a6 6 0 1 0 0-12H5.828z"/></svg>
+            <span>&nbsp;Back</span>
           </button>
-        </nav>
+        </div>
 
-        <ul id="choices">
-          <li>
-            <button id="quick-talk-choice">
-              <h3>Quick Talk
+        <div class="box-content">
+          <ul id="choices">
+            <li>
+              <button id="quick-talk-choice">
+                <h3>Quick Talk
+                  <div>
+                  <span class="duration">15 mins</span>
+                  <span class="price">Free</span>
+                  </div>
+                </h3>
+                <p>Let's meet and discuss about how we could collaborate in the future. Limited to 2 per day.</p>
+              </button>
+            </li>
+            <hr>
+            <li>
+              <button id="advising-session-choice">
+              <h3>Advising Session
                 <div>
-                <span class="duration">15 mins</span>
-                <span class="price">Free</span>
+                <span class="duration">90 mins</span>
+                <span class="price">$360</span>
                 </div>
               </h3>
-              <p>Let's meet and discuss about how we could collaborate in the future. Limited to 2 per day.</p>
+              <p>Tell me about an idea/project you have and I will save you weeks of work by providing you with an analysis of its technical feasibility, the problems you're likely to face and their existing solutions, similar concepts I've already encountered, and finally, a bunch of ideas to improve it.</p>
             </button>
-          </li>
-          <hr>
-          <hr>
-          <li>
-            <button id="advising-session-choice">
-            <h3>Advising Session
-              <div>
-              <span class="duration">90 mins</span>
-              <span class="price">$360</span>
-              </div>
-            </h3>
-            <p>Tell me about an idea/project you have and I will save you weeks of work by providing you with an analysis of its technical feasibility, the problems you're likely to face and their existing solutions, similar concepts I've already encountered, and finally, a bunch of ideas to improve it.</p>
-          </button>
-          </li>
-        </ul>
-        
-        <ul id="calendars">
-          <li id="quick-talk-calendar"></li>
-          <li id="advising-session-calendar"></li>
-        </ul>
+            </li>
+          </ul>
+          
+          <ul id="calendars">
+            <li id="quick-talk-calendar"></li>
+            <li id="advising-session-calendar"></li>
+          </ul>
+        </div>
       </div>
     </article>
-
-    
-
 
     {{!-- <article id="hire-me" class="box"> --}}
     {{!--   <h2>Hire me</h2> --}}
@@ -178,99 +177,6 @@
   {{!--     </ul> --}}
   {{!--   </article> --}}
   {{!-- </section> --}}
+  <script src="assets/js/home/calendars.js"></script>
+  <script src="assets/js/home/book-an-appointment.js"></script>
 </div>
-
-<script>
-  window.addEventListener("load", function () {
-    const choices = document.querySelector("#choices");
-    const quickTalkChoice = choices.querySelector("button#quick-talk-choice");
-    const advisingSessionChoice = choices.querySelector("button#advising-session-choice");
-
-    const calendars = document.querySelector("#calendars");
-    const quickTalkCalendar = calendars.querySelector("#quick-talk-calendar");
-    const advisingSessionCalendar = calendars.querySelector("#advising-session-calendar");
-
-    const nav = document.querySelector("#book-an-appointment nav");
-    const navBackButton = nav.querySelector("button");
-
-    quickTalkChoice.addEventListener("click", function () {
-      choices.style.display = "none";
-      nav.style.display = "flex";
-      calendars.style.display = "flex";
-      quickTalkCalendar.style.visibility = "visible";
-      quickTalkCalendar.style.width = "100%";
-      quickTalkCalendar.style.height = "100%";
-    })
-
-    advisingSessionChoice.addEventListener("click", function () {
-      choices.style.display = "none";
-      nav.style.display = "flex";
-      calendars.style.display = "flex";
-      advisingSessionCalendar.style.visibility = "visible";
-      advisingSessionCalendar.style.width = "100%";
-      advisingSessionCalendar.style.height = "100%";
-    })
-
-    navBackButton.addEventListener("click", function () {
-      nav.style.display = "none";
-      choices.style.display = "block";
-      calendars.style.display = "none";
-      quickTalkCalendar.style.visibility = "hidden";
-      quickTalkCalendar.style.width = "0px";
-      quickTalkCalendar.style.height = "0px";
-      advisingSessionCalendar.style.visibility = "hidden";
-      advisingSessionCalendar.style.width = "0px";
-      advisingSessionCalendar.style.height = "0px";
-    })
-  })
-</script>
-
-
-<script>
-  window.addEventListener("load", function () {
-    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; typeof namespace === "string" ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-  });
-</script>
-
-<script type="text/javascript">
-  window.addEventListener("load", function () {
-    Cal("init", "quickTalk");
-    Cal("init", "advisingSession");
-
-    Cal("preload", { calLink: "lilarest/quick-talk" });
-    Cal("preload", { calLink: "lilarest/advising-session" });
-
-    Cal.ns.quickTalk("inline", {
-      elementOrSelector:"#quick-talk-calendar",
-      calLink: "lilarest/quick-talk"
-    });
-    Cal.ns.quickTalk("ui", {
-      styles: {
-        branding: {
-          brandColor: "#073642"
-        },
-        eventTypeListItem: {
-          background: "#ff0000"
-        }
-      },
-      hideEventTypeDetails: true
-    });
-
-    Cal.ns.advisingSession("inline", {
-      elementOrSelector:"#advising-session-calendar",
-      calLink: "lilarest/advising-session"
-    });
-    Cal.ns.advisingSession("ui", {
-      styles: {
-        branding: {
-          brandColor: "#073642"
-        },
-        body: {
-          backgroundColor: "#073642"
-        }
-      },
-      hideEventTypeDetails: true
-    });
-  })
-</script>
-
