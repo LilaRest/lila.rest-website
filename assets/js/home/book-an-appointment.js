@@ -5,10 +5,9 @@ window.addEventListener("load", function () {
   const quickTalkChoice = choices.querySelector("button#quick-talk-choice");
   const advisingSessionChoice = choices.querySelector("button#advising-session-choice");
 
-  const overlay = document.querySelector("#book-an-appointment > div > div.box-overlay");
+  const overlay = document.querySelector("#book-an-appointment > .box > .box-overlay");
   const navBackButton = overlay.querySelector("button");
-  const loader = overlay.querySelector("div.loader");
-  console.log(loader);
+  const loader = overlay.querySelector(".loader");
 
   const calendars = document.querySelector("#calendars");
   const quickTalkCalendar = calendars.querySelector("#quick-talk-calendar");

@@ -3,8 +3,7 @@
 {{/contentFor}}
 
 
-{{!< default}}
-{{!-- The tag above means: insert everything in this file into the {body} of default.hbs template --}}
+{{!< default}} {{!-- Insert the below content into default.hbs {{{body}}} tag --}}
 
 <div id="home">
   
@@ -56,10 +55,10 @@
   {{!-- </section> --}}
 
   <section id="collaboration">
-    <article id="book-an-appointment" class="box">
+    <article id="book-an-appointment" class="content">
       <h2>Book an appointment</h2>
 
-      <div>
+      <div class="box">
         <div class="box-overlay">
           <div class="loader hidden"></div>
           <button>
@@ -68,7 +67,7 @@
           </button>
         </div>
 
-        <div class="box-content">
+        <div class="box-main">
           <ul id="choices">
             <li>
               <button id="quick-talk-choice">

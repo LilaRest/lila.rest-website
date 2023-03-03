@@ -30,3 +30,97 @@ h4, h5, h6 {
   letter-spacing: 0.02em;
   font-weight: 1000;
 }
+
+/* #########################
+   ### CONTENT CONTAINER ###
+   ######################### */
+.content {
+  margin: 20px;
+}
+
+/* Content > Title */
+.content > h2 {
+  font-size: 30px;
+  background-color: var(--black);
+  color: var(--light-grey);
+  font-weight: 900;
+  padding: 11px 17px 17px 17px;
+  line-height: 36px;
+  text-align: center;
+}
+
+/* Content > Box */
+.content > .box {
+  position: relative;
+}
+
+/* Content > Box > Layers */
+.content > .box > * {
+  border-radius: 15px;
+  border-style: solid;
+  border-width: 4px;
+  border-color: var(--dark-grey);
+}
+
+/* Content > Box > Overlay */
+.content > .box > .box-overlay {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  top: 0px;
+  left: 0px;
+  background-color: transparent;
+  z-index: 10;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Content > Box > Overlay > Loader */
+@keyframes loader {
+  0%   { background-position:  100%; }
+  100% { background-position: -100%; }
+}
+
+.content > .box > .box-overlay > .loader {
+  height: 100%;
+  width: 100%;
+  animation: 0.75s ease-in-out infinite loader;
+  background: linear-gradient(100deg, var(--dark-black) 0%, var(--black) 40%, var(--black) 60%, var(--dark-black) 100%);
+  background-size: 200%;
+  opacity: 1;
+}
+
+.content > .box > .box-overlay > .loader.hidden  {
+  transition: opacity 200ms ease-in-out;
+  opacity: 0;
+}
+
+/* Content > Box > Overlay > Button */
+.content > .box > .box-overlay > button {
+  display: none;
+  position: absolute;
+  bottom: -4px;
+  left: -4px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 0;
+  transition: filter 250ms ease-in-out;
+  font-size: 16px;
+  background-color: var(--dark-grey);
+  pointer-events: all;
+  padding: 7px 15px 7px 15px;
+  font-weight: 600;
+  color: var(--dark-black);
+}
+
+.content > .box > .box-overlay > button:hover {
+  filter: brightness(1.2);
+}
+
+/* Content > Box > Main */
+.content > .box > .box-main {
+  overflow: hidden;
+  background-color: var(--dark-black);
+}

@@ -1,95 +1,6 @@
-/* Box */
-.box {
-  margin: 20px;
-}
-
-/* Box title */
-.box > h2 {
-  font-size: 30px;
-  background-color: var(--black);
-  color: var(--light-grey);
-  font-weight: 900;
-  padding: 11px 17px 17px 17px;
-  line-height: 36px;
-  text-align: center;
-}
-
-/* Box container */
-.box > div {
-  position: relative;
-}
-
-.box > div > div {
-  border-radius: 15px;
-  border-style: solid;
-  border-width: 4px;
-  border-color: var(--dark-grey);
-}
-
-/* Box container > Overlay */
-.box > div > div.box-overlay {
-  position: absolute;
-  right: 0px;
-  bottom: 0px;
-  top: 0px;
-  left: 0px;
-  background-color: transparent;
-  z-index: 10;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-/* Box container > Overlay > Loader */
-@keyframes loader {
-  0%   { background-position:  100%; }
-  100% { background-position: -100%; }
-}
-
-.box > div > div.box-overlay > div.loader {
-  height: 100%;
-  width: 100%;
-  animation: 0.75s ease-in-out infinite loader;
-  background: linear-gradient(100deg, var(--dark-black) 0%, var(--black) 40%, var(--black) 60%, var(--dark-black) 100%);
-  background-size: 200%;
-  opacity: 1;
-}
-
-.box > div > div.box-overlay > div.loader.hidden  {
-  transition: opacity 200ms ease-in-out;
-  opacity: 0;
-}
-
-/* Box container > Overlay > Button */
-.box > div > div.box-overlay > button {
-  display: none;
-  position: absolute;
-  /* bottom: -4px; */
-  /* left: -4px; */
-  align-items: center;
-  justify-content: center;
-  border-radius: 15px;
-  border-bottom-right-radius: 0;
-  border-top-left-radius: 0;
-  transition: filter 250ms ease-in-out;
-  font-size: 16px;
-  background-color: var(--dark-grey);
-  pointer-events: all;
-  padding: 7px 15px 7px 15px;
-  font-weight: 600;
-  color: var(--dark-black);
-}
-
-.box > div > div.box-overlay > button:hover {
-  filter: brightness(1.2);
-}
-
-/* Box container > Content */
-.box > div > div.box-content {
-  overflow: hidden;
-  background-color: var(--dark-black);
-}
-
-/* Home */
+/* ##############
+   ### LAYOUT ###
+   ############## */
 div#home {
   display: flex;
   justify-content: center;
@@ -112,7 +23,14 @@ div#home > section#works {
   width: 100vw;
 }
 
-/* Book an appointment box */
+/* #####################################
+   ### "BOOK AN APPOINTMENT" SECTION ### 
+   ##################################### */
+
+div#home article#book-an-appointment {
+  
+}
+
 div#home article#book-an-appointment ul#choices {
   overflow: hidden;
 }
