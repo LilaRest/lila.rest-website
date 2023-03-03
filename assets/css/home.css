@@ -1,40 +1,3 @@
-:root {
---dark-black: #002b36;
---black: #073642;
-/* --black: #134b5a; */
---dark-grey: #586e75;
---grey: #657b83;
---light-grey: #93a1a1; 
---dark-white: #eee8d5;
---white: #fdf6e3;
---yellow: #b58900;
---orange: #cb4b16;
---red: #dc322f;
---magenta: #d33682;
---violet: #6c71c4;
---blue: #268bd2;
---cyan: #2aa198;
---green: #859900;
-
---box-border-color: var(--dark-white);
---box-heading-color: var(--white);
-}
-
-html {
-  filter: brightness(88%) contrast(88%);
-}
-
-body {
-  font-family: "Noto Sans Mono";
-  background-color: var(--black);
-}
-
-h1, h2, h3,
-h4, h5, h6 {
-  letter-spacing: 0.02em;
-  font-weight: 1000;
-}
-
 /* Box */
 .box {
   margin: 20px;
@@ -46,7 +9,7 @@ h4, h5, h6 {
   background-color: var(--black);
   color: var(--light-grey);
   font-weight: 900;
-  padding: 11px 17px 15px 17px;
+  padding: 11px 17px 17px 17px;
   line-height: 36px;
   text-align: center;
 }
@@ -73,25 +36,35 @@ h4, h5, h6 {
   background-color: transparent;
   z-index: 10;
   pointer-events: none;
-  transition: loader 300ms ease-in-out;
+  overflow: hidden;
 }
 
+/* Box container > Overlay > Loader */
 @keyframes loader {
   0%   { background-position:  100%; }
   100% { background-position: -100%; }
 }
 
-.box > div > div.box-overlay.loader {
+.box > div > div.box-overlay > div.loader {
+  height: 100%;
+  width: 100%;
   animation: 0.75s ease-in-out infinite loader;
   background: linear-gradient(100deg, var(--dark-black) 0%, var(--black) 40%, var(--black) 60%, var(--dark-black) 100%);
   background-size: 200%;
+  opacity: 1;
 }
 
+.box > div > div.box-overlay > div.loader.hidden  {
+  transition: opacity 200ms ease-in-out;
+  opacity: 0;
+}
+
+/* Box container > Overlay > Button */
 .box > div > div.box-overlay > button {
   display: none;
   position: absolute;
-  bottom: -4px;
-  left: -4px;
+  /* bottom: -4px; */
+  /* left: -4px; */
   align-items: center;
   justify-content: center;
   border-radius: 15px;
@@ -112,8 +85,6 @@ h4, h5, h6 {
 
 /* Box container > Content */
 .box > div > div.box-content {
-
-  transition-duration: 300ms;
   overflow: hidden;
   background-color: var(--dark-black);
 }
@@ -226,8 +197,7 @@ div#home article#book-an-appointment ul#calendars > li > cal-inline {
   align-items: center;
   margin-top: -5px;
   margin-bottom: -4px;
-  /* margin-left: -2px; */
-  /* margin-right: -2px; */
+  max-height: 448px;
 }
 
 div#home article#book-an-appointment ul#calendars > li > cal-inline > iframe {

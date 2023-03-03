@@ -1,0 +1,32 @@
+:root {
+  --dark-black: #002b36;
+  --black: #073642;
+  --dark-grey: #586e75;
+  --grey: #657b83;
+  --light-grey: #93a1a1; 
+  --dark-white: #eee8d5;
+  --white: #fdf6e3;
+  --yellow: #b58900;
+  --orange: #cb4b16;
+  --red: #dc322f;
+  --magenta: #d33682;
+  --violet: #6c71c4;
+  --blue: #268bd2;
+  --cyan: #2aa198;
+  --green: #859900;
+}
+
+html {
+  filter: brightness(88%) contrast(88%);
+}
+
+body {
+  font-family: "Noto Sans Mono";
+  background-color: var(--black);
+}
+
+h1, h2, h3,
+h4, h5, h6 {
+  letter-spacing: 0.02em;
+  font-weight: 1000;
+}
