@@ -17,6 +17,16 @@
   </head>
 
   <body class="{{body_class}}">
+      <div class="loading-screen">
+        <div class="content">
+          <div class="box">
+            <div class="box-overlay">
+              <div class="loader"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <header>
         <h1>{{meta_title}}</h1>
       </header>
@@ -27,6 +37,8 @@
       </main>
 
       <footer>
+        <script src="assets/js/common/loader.js"></script>
+        
         {{!-- Footer code injection --}}
         {{ghost_foot}} {{!-- FROM SETTINGS  --}}
         {{{block "footer"}}} {{!-- FROM CHILDREN TEMPLATES --}}

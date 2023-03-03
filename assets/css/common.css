@@ -31,6 +31,44 @@ h4, h5, h6 {
   font-weight: 1000;
 }
 
+/* ######################
+   ### LOADING SCREEN ###
+   ###################### */
+.loading-screen {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--black);
+  z-index: 1000;
+  transition: opacity 300ms ease-in-out;
+  opacity: 1;
+}
+
+.loading-screen,
+.loading-screen .content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-screen .content {
+  margin: 0 !important;
+}
+
+.loading-screen .content .box .box-overlay {
+  height: 30px;
+  width: 50vw;
+  min-width: 200px;
+  position: unset !important;
+  transition-property: width, height;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out;
+}
+
 /* #########################
    ### CONTENT CONTAINER ###
    ######################### */
@@ -52,14 +90,11 @@ h4, h5, h6 {
 /* Content > Box */
 .content > .box {
   position: relative;
-}
-
-/* Content > Box > Layers */
-.content > .box > * {
   border-radius: 15px;
   border-style: solid;
   border-width: 4px;
   border-color: var(--dark-grey);
+  overflow: hidden;
 }
 
 /* Content > Box > Overlay */
@@ -72,7 +107,6 @@ h4, h5, h6 {
   background-color: transparent;
   z-index: 10;
   pointer-events: none;
-  overflow: hidden;
 }
 
 /* Content > Box > Overlay > Loader */
