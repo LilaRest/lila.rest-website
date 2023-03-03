@@ -25,7 +25,6 @@ window.addEventListener("load", function () {
     }
   };
 
-
   quickTalkChoice.addEventListener("click", function () {
     choices.style.display = "none";
     navBackButton.style.display = "flex";
@@ -126,7 +125,7 @@ window.addEventListener("load", function () {
         frame.parentElement.style.maxHeight = "unset";
       }
       else {
-        frame.style.minWidth = "850px";
+        frame.style.minWidth = "770px";
         frame.parentElement.style.maxHeight = "448px";
       }
     }

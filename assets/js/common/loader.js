@@ -2,14 +2,18 @@ window.addEventListener("load", function () {
   const loadingScreen = document.querySelector(".loading-screen ");
   const overlay = loadingScreen.querySelector(".loading-screen .content .box .box-overlay");
 
-  overlay.style.width = "calc(100vw - 8px)";
-  overlay.style.height = "calc(100vh - 8px)";
+  overlay.style.minWidth = "0px";
+  overlay.style.width = "80px";
+  overlay.style.height = "80px";
 
   setTimeout(() => {
-    loadingScreen.style.opacity = "0";
-    loadingScreen.style.pointerEvent = "none";
+    overlay.parentElement.style.transform = "rotateZ(45deg)";
     setTimeout(() => {
-      loadingScreen.remove();
-    }, 300);
+      loadingScreen.style.opacity = "0";
+      loadingScreen.style.pointerEvent = "none";
+      setTimeout(() => {
+        loadingScreen.remove();
+      }, 200);
+    }, 600);
   }, 300);
 });

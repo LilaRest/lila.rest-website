@@ -28,7 +28,7 @@ div#home > section#works {
    ##################################### */
 
 div#home article#book-an-appointment {
-  
+
 }
 
 div#home article#book-an-appointment ul#choices {
@@ -106,7 +106,6 @@ div#home article#book-an-appointment ul#calendars > li {
   visibility: hidden;
   max-width:658px;
   border-bottom-right-radius: 15px;
-  overflow: hidden;
   border-bottom-right-radius: 15px;
 }
 
@@ -119,6 +118,6 @@ div#home article#book-an-appointment ul#calendars > li > cal-inline {
 }
 
 div#home article#book-an-appointment ul#calendars > li > cal-inline > iframe {
-  min-width: 850px; /* If the iframe is smaller than 850px the calendar hour selector will wrap */
+  min-width: 770px; /* If the iframe is smaller than 850px the calendar hour selector will wrap */
   filter: opacity(90%);
 }

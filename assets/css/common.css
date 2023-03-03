@@ -51,12 +51,22 @@ h4, h5, h6 {
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-end;
   align-items: center;
 }
 
 .loading-screen .content {
   margin: 0 !important;
+}
+
+.loading-screen .content h2 {
+  margin-bottom: 50px;
+}
+
+.loading-screen .content .box {
+  transition: transform 400ms ease-in-out;
+  margin-bottom: 20px;
 }
 
 .loading-screen .content .box .box-overlay {
@@ -155,6 +165,5 @@ h4, h5, h6 {
 
 /* Content > Box > Main */
 .content > .box > .box-main {
-  overflow: hidden;
   background-color: var(--dark-black);
 }
