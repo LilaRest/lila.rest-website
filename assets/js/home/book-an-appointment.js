@@ -19,7 +19,8 @@ window.addEventListener("load", function () {
     }
     else {
       Cal.ns.advisingSession("on", {
-        action: "__windowLoadComplete",
+        action: "linkReady",
+        // action: "__windowLoadComplete",
         callback: () => loader.classList.add("hidden")
       });
     }
@@ -116,42 +117,63 @@ window.addEventListener("load", function () {
   Cal.ns.advisingSession("preload", { calLink: "lilarest/advising-session" });
 
   // Dynamically adjust width and height to fit the iframes' contents
-  const lastOffsetHeights = {};
-  const fitContent = (frame) => {
-    if (!lastOffsetHeights[frame.src]) lastOffsetHeights[frame.src] = frame.offsetHeight;
-    if (frame.offsetHeight !== lastOffsetHeights[frame.src]) {
-      if (frame.offsetHeight > 500 && frame.offsetHeight < 800) {
-        frame.style.minWidth = "0px";
-        frame.parentElement.style.maxHeight = "unset";
-      }
-      else {
-        frame.style.minWidth = "770px";
+  const fitContent = (namespace) => {
+    const ns = Cal.ns[namespace];
+    const frame = ns.instance.iframe;
+
+    // Listen for route change
+    const routeListener = {
+      action: "__routeChanged",
+      callback: () => {
+
+        // Stop listening after first received event
+        ns("off", routeListener);
+
+        // Display the loading screen
+        loader.classList.remove("hidden");
+
+        // Reset default height and width to let iframe content take the place it need (analyzed below)
+        frame.style.minWidth = "900px";
         frame.parentElement.style.maxHeight = "448px";
+
+        // Listen for the next dimension changed event
+        const dimensionListener = {
+          action: "__dimensionChanged",
+          callback: (e) => {
+
+            // Stop listening after first received event
+            ns("off", dimensionListener);
+
+            // Let 1 second for iframe content to take the space it needs (removing will break)
+            setTimeout(() => {
+
+              // Remove height and width limit if the current page is the booking form (greater than 400px)
+              if (e.detail.data.iframeHeight > 400) {
+                frame.style.minWidth = "0px";
+                frame.parentElement.style.maxHeight = "unset";
+              }
+
+              // Hide the loading screen
+              loader.classList.add("hidden");
+
+              // Re-enable listening of further route changes
+              ns("on", routeListener);
+            }, 1000);
+          }
+        };
+        ns("on", dimensionListener);
       }
-    }
+    };
+    ns("on", routeListener);
   };
 
   Cal.ns.quickTalk("on", {
-    action: "*",
-    callback: (e) => fitContent(Cal.ns.quickTalk.instance.iframe)
+    action: "linkReady",
+    callback: () => fitContent("quickTalk")
   });
 
   Cal.ns.advisingSession("on", {
-    action: "*",
-    callback: (e) => fitContent(Cal.ns.advisingSession.instance.iframe)
-  });
-
-  // Display the loader between each route change to hide the buggy transition
-  const displayLoaderASecond = () => {
-    loader.classList.remove("hidden");
-    setTimeout(() => loader.classList.add("hidden"), 900);
-  };
-  Cal.ns.quickTalk("on", {
-    action: "__routeChanged",
-    callback: displayLoaderASecond
-  });
-  Cal.ns.advisingSession("on", {
-    action: "__routeChanged",
-    callback: displayLoaderASecond
+    action: "linkReady",
+    callback: () => fitContent("advisingSession")
   });
 });

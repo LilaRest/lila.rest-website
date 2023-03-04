@@ -112,12 +112,13 @@ div#home article#book-an-appointment ul#calendars > li {
 div#home article#book-an-appointment ul#calendars > li > cal-inline {
   justify-content: center;
   align-items: center;
-  margin-top: -5px;
+  margin-top: -4px;
   margin-bottom: -4px;
   max-height: 448px;
 }
 
 div#home article#book-an-appointment ul#calendars > li > cal-inline > iframe {
-  min-width: 770px; /* If the iframe is smaller than 850px the calendar hour selector will wrap */
+  /* min-width: 770px; /1* If the iframe is smaller than 850px the calendar hour selector will wrap *1/ */
+  min-width: 900px; /* If the iframe is smaller than 850px the calendar hour selector will wrap */
   filter: opacity(90%);
 }
