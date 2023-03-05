@@ -1,10 +1,11 @@
-:root {
-  --dark-black: #002b36;
+body {
+  --black-dark: #002b36;
   --black: #073642;
-  --dark-grey: #586e75;
+  --grey-dark: #586e75;
   --grey: #657b83;
-  --light-grey: #93a1a1; 
-  --dark-white: #eee8d5;
+  --grey-light: #93a1a1;
+  --white-dark: #eee8d5;
+
   --white: #fdf6e3;
   --yellow: #b58900;
   --orange: #cb4b16;
@@ -16,13 +17,50 @@
   --green: #859900;
 }
 
-html {
-  filter: brightness(88%) contrast(88%);
+body.theme-dark {
+  --base-low: var(--black-dark);
+  --base: var(--black);
+  --mid-low: var(--grey-dark);
+  --mid: var(--grey);
+  --mid-high: var(--grey-light); 
+  --cont: var(--white-dark);
+  --cont-high: var(--white);
 }
+
+body.theme-light {
+  --base-low: var(--white-dark);
+  --base: var(--white);
+  --mid-low: var(--grey-light);
+  --mid: var(--grey);
+  --mid-high: var(--grey-dark); 
+  --cont: var(--black);
+  --cont-high: var(--black-dark);
+}
+
+* {
+  transition: background-color 300ms ease-in-out, color 300ms ease-in-out, border-color 300ms ease-in-out;
+}
+
+html {
+  /* filter: brightness(88%) contrast(88%); */
+}
+
+/* html::after { */
+/*   content: ""; */
+/*   position: absolute; */
+/*   top: 0; */
+/*   right: 0; */
+/*   bottom: 0; */
+/*   left: 0; */
+/*   filter: contrast(50%) brightness(100%) opacity(0.4);; */
+/*   background:	url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.48' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); */
+/*   z-index: 1001; */
+/*   pointer-events: none; */
+/* } */
 
 body {
   font-family: "Noto Sans Mono";
-  background-color: var(--black);
+  background-color: var(--base);
 }
 
 h1, h2, h3,
@@ -40,7 +78,7 @@ h4, h5, h6 {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: var(--black);
+  background-color: var(--base);
   z-index: 1000;
   transition: opacity 300ms ease-in-out;
   opacity: 1;
@@ -79,6 +117,64 @@ h4, h5, h6 {
   transition-timing-function: ease-in-out;
 }
 
+/* ######################
+   ### THEME SWITCHER ###
+   ###################### */
+.theme-switcher {  
+}
+
+.theme-switcher label {
+  overflow: hidden;  
+  position: relative;
+  background-color: var(--base-low);
+  border-style: solid;
+  border-radius: 15px;
+  border-color: var(--mid-low);
+  border-width: 4px;
+  cursor: pointer;
+  padding: 5px 7px 5px 7px;
+  display: flex;
+  justify-content: space-between;
+  width: 100px;
+}
+
+.theme-switcher label svg {
+  fill: var(--mid-low);
+  padding: 5px;
+  border-radius: 15px;
+}
+
+.theme-switcher label input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  opacity: 0;
+}
+.theme-switcher input:not(:checked) ~ svg.sun {
+  background-color: var(--mid-low);
+  fill: var(--base);
+}
+
+.theme-switcher input:not(:checked) ~ svg.moon {
+  background-color: none;
+}
+
+.theme-switcher input:checked ~ svg.sun {
+  background-color: none;
+}
+
+.theme-switcher input:checked ~ svg.moon {
+  background-color: var(--mid-low);
+  fill: var(--base);
+}
+
+.theme-switcher button.hidden {
+  visibility: hidden;
+}
+
 /* #########################
    ### CONTENT CONTAINER ###
    ######################### */
@@ -89,8 +185,7 @@ h4, h5, h6 {
 /* Content > Title */
 .content > h2 {
   font-size: 30px;
-  background-color: var(--black);
-  color: var(--light-grey);
+  color: var(--mid-high);
   font-weight: 900;
   padding: 11px 17px 17px 17px;
   line-height: 36px;
@@ -103,7 +198,7 @@ h4, h5, h6 {
   border-radius: 15px;
   border-style: solid;
   border-width: 4px;
-  border-color: var(--dark-grey);
+  border-color: var(--mid-low);
   overflow: hidden;
 }
 
@@ -129,14 +224,16 @@ h4, h5, h6 {
   height: 100%;
   width: 100%;
   animation: 0.75s ease-in-out infinite loader;
-  background: linear-gradient(100deg, var(--dark-black) 0%, var(--black) 40%, var(--black) 60%, var(--dark-black) 100%);
+  background: linear-gradient(100deg, var(--base-low) 0%, var(--base) 40%, var(--base) 60%, var(--base-low) 100%);
   background-size: 200%;
   opacity: 1;
+  pointer-events: all;
 }
 
 .content > .box > .box-overlay > .loader.hidden  {
   transition: opacity 200ms ease-in-out;
   opacity: 0;
+  pointer-events: none;
 }
 
 /* Content > Box > Overlay > Button */
@@ -150,20 +247,21 @@ h4, h5, h6 {
   border-radius: 15px;
   border-bottom-right-radius: 0;
   border-top-left-radius: 0;
-  transition: filter 250ms ease-in-out;
+  transition: filter 250ms ease-in-out, padding 250ms ease-in-out;
   font-size: 16px;
-  background-color: var(--dark-grey);
+  background-color: var(--mid-low);
   pointer-events: all;
   padding: 7px 15px 7px 15px;
   font-weight: 600;
-  color: var(--dark-black);
+  color: var(--base-low);
 }
 
 .content > .box > .box-overlay > button:hover {
   filter: brightness(1.2);
+  padding: 7px 15px 10px 17px;
 }
 
 /* Content > Box > Main */
 .content > .box > .box-main {
-  background-color: var(--dark-black);
+  background-color: var(--base-low);
 }

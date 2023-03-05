@@ -27,8 +27,9 @@ div#home > section#works {
    ### "BOOK AN APPOINTMENT" SECTION ### 
    ##################################### */
 
-div#home article#book-an-appointment {
-
+div#home article#book-an-appointment .box {
+  /* transition: min-height 150ms ease-in-out; */
+  /* min-height: 330px; /1* required for animation, should be smaller than real #choices height *1/ */
 }
 
 div#home article#book-an-appointment ul#choices {
@@ -39,20 +40,20 @@ div#home article#book-an-appointment ul#choices button {
   display: flex;
   flex-direction: column;
   transition: background-color 250ms ease-in-out, padding-left 250ms ease-in-out;
-  background-color: var(--dark-black);
+  background-color: var(--base-low);
   padding: 16px 20px 20px 20px;
   z-index: 10;
 }
 
 div#home article#book-an-appointment ul#choices button:hover {
-  background-color: var(--black);
+  background-color: var(--base);
   padding-left: 30px;
 }
 
 div#home article#book-an-appointment ul#choices button h3 {
   font-size: 20px;
   font-weight: 700;
-  color: var(--light-grey);
+  color: var(--mid-high);
   font-weight: 1000;
   display: flex;
   justify-content: space-between;
@@ -69,7 +70,7 @@ div#home article#book-an-appointment ul#choices button h3 span {
   align-items: center;
   border-radius: 10px;
   font-size: 14px;
-  color: var(--white);
+  color: var(--cont);
   opacity: 0.8;
   font-weight: 600;
   margin-top: -10px;
@@ -86,13 +87,13 @@ div#home article#book-an-appointment ul#choices button h3 span.duration {
 div#home article#book-an-appointment ul#choices button p {
   padding-top: 12px;
   padding-left: 10px;
-  color: var(--dark-white);  
+  color: var(--cont);  
 }
 
 div#home article#book-an-appointment ul#choices hr {
   border-top-style: solid;
   border-top-width: 2px;
-  border-top-color: var(--dark-grey);
+  border-top-color: var(--mid-low);
 }
 
 div#home article#book-an-appointment ul#calendars {

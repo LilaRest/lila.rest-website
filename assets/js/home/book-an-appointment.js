@@ -13,12 +13,12 @@ window.addEventListener("load", function () {
   const quickTalkCalendar = calendars.querySelector("#quick-talk-calendar");
   const advisingSessionCalendar = calendars.querySelector("#advising-session-calendar");
 
-  const hideLoaderWhenReady = (calInstance) => {
-    if (calInstance && calInstance.iframeReady) {
-      this.setTimeout(() => loader.classList.add("hidden"), 500);
+  const hideLoaderWhenReady = (ns) => {
+    if (ns.instance && ns.instance.iframeReady) {
+      setTimeout(() => loader.classList.add("hidden"), 500);
     }
     else {
-      Cal.ns.advisingSession("on", {
+      ns("on", {
         action: "linkReady",
         // action: "__windowLoadComplete",
         callback: () => loader.classList.add("hidden")
@@ -27,29 +27,29 @@ window.addEventListener("load", function () {
   };
 
   quickTalkChoice.addEventListener("click", function () {
+    loader.classList.remove("hidden");
     choices.style.display = "none";
     navBackButton.style.display = "flex";
     calendars.style.display = "flex";
     quickTalkCalendar.style.visibility = "visible";
     quickTalkCalendar.style.width = "100%";
     quickTalkCalendar.style.height = "100%";
-    loader.classList.remove("hidden");
-    hideLoaderWhenReady(Cal.ns.quickTalk.instance);
+    hideLoaderWhenReady(Cal.ns.quickTalk);
   });
 
-
   advisingSessionChoice.addEventListener("click", function () {
+    loader.classList.remove("hidden");
     choices.style.display = "none";
     navBackButton.style.display = "flex";
     calendars.style.display = "flex";
     advisingSessionCalendar.style.visibility = "visible";
     advisingSessionCalendar.style.width = "100%";
     advisingSessionCalendar.style.height = "100%";
-    loader.classList.remove("hidden");
-    hideLoaderWhenReady(Cal.ns.advisingSession.instance);
+    hideLoaderWhenReady(Cal.ns.advisingSession);
   });
 
   navBackButton.addEventListener("click", function () {
+    loader.classList.remove("hidden");
     navBackButton.style.display = "none";
     choices.style.display = "block";
     calendars.style.display = "none";
@@ -175,5 +175,10 @@ window.addEventListener("load", function () {
   Cal.ns.advisingSession("on", {
     action: "linkReady",
     callback: () => fitContent("advisingSession")
+  });
+
+  Cal.ns.quickTalk("on", {
+    action: "linkReady",
+    callback: () => console.log("LINK READY")
   });
 });
