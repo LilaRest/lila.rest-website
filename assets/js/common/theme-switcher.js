@@ -51,7 +51,7 @@ window.addEventListener("load", function () {
   themeSwitcher.addEventListener("change", () => {
     setExplicitPreference(themeSwitcher.checked ? "dark" : "light");
     updateTheme();
-    resetThemeButton.classList.remove("hidden");
+    resetThemeButton.classList.add("shown");
   });
 
   /* Trigger a theme update each time the OS theme changes */
@@ -61,10 +61,10 @@ window.addEventListener("load", function () {
   resetThemeButton.addEventListener("click", () => {
     resetExplicitPreference();
     updateTheme();
-    resetThemeButton.classList.add("hidden");
+    resetThemeButton.classList.remove("shown");
   });
 
   /* Hide the reset button if no explicit preference is set yet */
-  if (!getExplicitPreference())
-    resetThemeButton.classList.add("hidden");
+  if (getExplicitPreference())
+    resetThemeButton.classList.add("shown");
 });

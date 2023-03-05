@@ -38,7 +38,7 @@ body.theme-light {
 }
 
 * {
-  transition: background-color 300ms ease-in-out, color 300ms ease-in-out, border-color 300ms ease-in-out;
+  transition: background-color 300ms ease-in-out, color 300ms ease-in-out, border-color 300ms ease-in-out, fill 300ms ease-in-out;
 }
 
 html {
@@ -117,10 +117,25 @@ h4, h5, h6 {
   transition-timing-function: ease-in-out;
 }
 
+
+/* ##############
+   ### HEADER ###
+   ############## */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 15px 15px 15px;
+}
+
+
 /* ######################
    ### THEME SWITCHER ###
    ###################### */
 .theme-switcher {  
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .theme-switcher label {
@@ -132,16 +147,17 @@ h4, h5, h6 {
   border-color: var(--mid-low);
   border-width: 4px;
   cursor: pointer;
-  padding: 5px 7px 5px 7px;
+  padding: 3px;
   display: flex;
   justify-content: space-between;
-  width: 100px;
 }
 
 .theme-switcher label svg {
   fill: var(--mid-low);
-  padding: 5px;
-  border-radius: 15px;
+  padding: 2px 4px 2px 4px;
+  border-radius: 9px;
+  width: 26px;
+  height: 26px;
 }
 
 .theme-switcher label input {
@@ -153,6 +169,11 @@ h4, h5, h6 {
   z-index: 2;
   opacity: 0;
 }
+
+.theme-switcher svg.sun {
+  margin-right: 4px;
+}
+
 .theme-switcher input:not(:checked) ~ svg.sun {
   background-color: var(--mid-low);
   fill: var(--base);
@@ -171,9 +192,53 @@ h4, h5, h6 {
   fill: var(--base);
 }
 
-.theme-switcher button.hidden {
+.theme-switcher button {
+  position: relative;
   visibility: hidden;
+  opacity: 0;
+  width: 0px;
+  margin-left: 0px;
+  transition: opacity 300ms ease-in-out, width 100ms ease-in-out, margin-left 300ms ease-in-out;
 }
+
+.theme-switcher button.shown {
+  margin-left: 8px;
+  opacity: 1;
+  visibility: visible;
+  width: auto;
+}
+
+.theme-switcher button svg {
+  fill: var(--mid-low);
+}
+
+.theme-switcher button span {
+  visibility: hidden;
+  opacity: 0;
+  background-color: var(--mid-low);
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  margin-right: -5px;
+  width: 90px;
+  color: var(--white-dark);
+  border-radius: 15px;
+  text-align: center;
+  padding: 5px 10px 5px 10px;
+  transition: opacity 300ms ease-in-out;
+  font-size: 14px;
+}
+
+.theme-switcher button:hover svg {
+  fill: var(--mid-high);
+}
+
+.theme-switcher button:hover span {
+  visibility: visible;
+  opacity: 1;
+}
+
+
 
 /* #########################
    ### CONTENT CONTAINER ###
