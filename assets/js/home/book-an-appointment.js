@@ -13,16 +13,18 @@ window.addEventListener("load", function () {
   const quickTalkCalendar = calendars.querySelector("#quick-talk-calendar");
   const advisingSessionCalendar = calendars.querySelector("#advising-session-calendar");
 
+  let lastLinkReadyListener = null;
   const hideLoaderWhenReady = (ns) => {
     if (ns.instance && ns.instance.iframeReady) {
       setTimeout(() => loader.classList.add("hidden"), 500);
     }
     else {
-      ns("on", {
+      if (lastLinkReadyListener) ns("off", lastLinkReadyListener);
+      lastLinkReadyListener = {
         action: "linkReady",
-        // action: "__windowLoadComplete",
         callback: () => loader.classList.add("hidden")
-      });
+      };
+      ns("on", lastLinkReadyListener);
     }
   };
 
@@ -175,10 +177,5 @@ window.addEventListener("load", function () {
   Cal.ns.advisingSession("on", {
     action: "linkReady",
     callback: () => fitContent("advisingSession")
-  });
-
-  Cal.ns.quickTalk("on", {
-    action: "linkReady",
-    callback: () => console.log("LINK READY")
   });
 });
