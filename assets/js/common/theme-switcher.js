@@ -44,6 +44,9 @@ window.addEventListener("load", function () {
   /* This function find and apply the theme */
   const updateTheme = () => applyTheme(findTheme());
 
+  /* Call update theme on loading */
+  updateTheme();
+
   /* Set explicit preference when the user change the theme switcher, also shows the reset button */
   themeSwitcher.addEventListener("change", () => {
     setExplicitPreference(themeSwitcher.checked ? "dark" : "light");
