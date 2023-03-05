@@ -1,3 +1,6 @@
+const themeChangeCallbacks = [];
+const onThemeChange = (callback) => themeChangeCallbacks.push(callback);
+
 window.addEventListener("load", function () {
   const themeSwitcher = document.querySelector(".theme-switcher input");
   const resetThemeButton = document.querySelector(".theme-switcher button");
@@ -42,10 +45,24 @@ window.addEventListener("load", function () {
   }
 
   /* This function find and apply the theme */
-  const updateTheme = () => applyTheme(findTheme());
+  let lastTheme = null;
+  const updateTheme = () => {
+    const newTheme = findTheme();
+    if (lastTheme !== newTheme) {
+      applyTheme(newTheme);
+      lastTheme = newTheme;
+      for (const callback of themeChangeCallbacks) {
+        callback();
+      }
+    }
+  };
 
   /* Call update theme on loading */
   updateTheme();
+
+  /* Hide the reset button if no explicit preference is set yet */
+  if (getExplicitPreference())
+    resetThemeButton.classList.add("shown");
 
   /* Set explicit preference when the user change the theme switcher, also shows the reset button */
   themeSwitcher.addEventListener("change", () => {
@@ -63,8 +80,4 @@ window.addEventListener("load", function () {
     updateTheme();
     resetThemeButton.classList.remove("shown");
   });
-
-  /* Hide the reset button if no explicit preference is set yet */
-  if (getExplicitPreference())
-    resetThemeButton.classList.add("shown");
 });

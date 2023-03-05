@@ -73,33 +73,38 @@ window.addEventListener("load", function () {
   Cal("init", "quickTalk");
   Cal("init", "advisingSession");
 
-
-  const init = async () => {
-
-    // Define UI configuration for calendars
-    const uiArgs = {
-      theme: "dark",
+  lastUiArgs = {};
+  function buildUiArgs () {
+    const bodyStyle = getComputedStyle(document.querySelector("body"));
+    return {
+      theme: document.body.classList.contains("theme-light") ? "light" : "dark",
       styles: {
         body: {
-          background: "#002b3600",
+          background: "#00000000",
         },
         eventTypeListItem: {
-          background: "#002b36",
+          background: bodyStyle.getPropertyValue("--base-low"),
         },
         availabilityDatePicker: {
-          backgroundColor: "#002b36",
-        },
-        branding: {
-          lightColor: "#93a1a1",
-          lighterColor: "#657b83",
+          backgroundColor: bodyStyle.getPropertyValue("--base-low"),
         },
         enabledDateButton: {
-          background: "#073642",
-          color: "#eee8d5"
+          background: bodyStyle.getPropertyValue("--base"),
+          color: bodyStyle.getPropertyValue("--cont")
+        },
+        branding: {
+          lightColor: bodyStyle.getPropertyValue("--mid-high"),
+          lighterColor: bodyStyle.getPropertyValue("--mid"),
         },
       },
       hideEventTypeDetails: true
     };
+  }
+
+  const init = async () => {
+
+    // Define UI configuration for calendars
+    const uiArgs = buildUiArgs();
 
     // Render calendars
     Cal.ns.quickTalk(
@@ -178,8 +183,19 @@ window.addEventListener("load", function () {
       action: "linkReady",
       callback: () => fitContent("advisingSession")
     });
+
+    Cal.ns.advisingSession("on", {
+      action: "*",
+      callback: (e) => { console.log(e.detail.type); console.log(e); }
+    });
+
+    onThemeChange(() => {
+      loader.classList.remove("hidden");
+      const newUiArgs = buildUiArgs();
+      Cal.ns.quickTalk("ui", newUiArgs);
+      Cal.ns.advisingSession("ui", newUiArgs);
+      setTimeout(() => loader.classList.add("hidden"), 1000);
+    });
   };
   init();
-
-
 });

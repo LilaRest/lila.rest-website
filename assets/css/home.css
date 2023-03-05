@@ -43,6 +43,7 @@ div#home article#book-an-appointment ul#choices button {
   background-color: var(--base-low);
   padding: 16px 20px 20px 20px;
   z-index: 10;
+  cursor: pointer;
 }
 
 div#home article#book-an-appointment ul#choices button:hover {
