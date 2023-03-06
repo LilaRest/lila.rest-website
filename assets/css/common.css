@@ -2,11 +2,12 @@ body {
   --black-dark: #002b36;
   --black: #073642;
   --grey-dark: #586e75;
-  --grey: #657b83;
+  --grey-darker: #657b83;
+  --grey-lighter: #839496;
   --grey-light: #93a1a1;
-  --white-dark: #eee8d5;
+  --white: #eee8d5;
+  --white-light: #fdf6e3;
 
-  --white: #fdf6e3;
   --yellow: #b58900;
   --orange: #cb4b16;
   --red: #dc322f;
@@ -21,20 +22,26 @@ body.theme-dark {
   --base-low: var(--black-dark);
   --base: var(--black);
   --mid-low: var(--grey-dark);
-  --mid: var(--grey);
+  --mid: var(--grey-lighter);
   --mid-high: var(--grey-light); 
-  --cont: var(--white-dark);
-  --cont-high: var(--white);
+  --cont: var(--white);
+  --cont-high: var(--white-light);
+
+  --orange: #cb4b16aa;
+  --blue: #268bd2aa;
 }
 
 body.theme-light {
-  --base-low: var(--white-dark);
-  --base: var(--white);
+  --base-low: var(--white);
+  --base: var(--white-light);
   --mid-low: var(--grey-light);
-  --mid: var(--grey);
+  --mid: var(--grey-darker);
   --mid-high: var(--grey-dark); 
   --cont: var(--black);
   --cont-high: var(--black-dark);
+
+  --orange: #cb4b16bb;
+  --blue: #268bd2bb;
 }
 
 * {
@@ -42,26 +49,36 @@ body.theme-light {
 }
 
 html {
-  /* filter: brightness(88%) contrast(88%); */
+  filter: contrast(115%);
 }
-
-/* html::after { */
-/*   content: ""; */
-/*   position: absolute; */
-/*   top: 0; */
-/*   right: 0; */
-/*   bottom: 0; */
-/*   left: 0; */
-/*   filter: contrast(50%) brightness(100%) opacity(0.4);; */
-/*   background:	url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.48' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); */
-/*   z-index: 1001; */
-/*   pointer-events: none; */
-/* } */
 
 body {
   font-family: "Noto Sans Mono";
   background-color: var(--base);
 }
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background:	url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-color: var(--mid);
+  z-index: 101;
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+body.theme-dark::before {
+  filter: contrast(105%) blur(0.2px);
+}
+
+body.theme-light::before {
+  filter: contrast(150%) blur(0.2px);
+}
+
 
 h1, h2, h3,
 h4, h5, h6 {
@@ -79,7 +96,7 @@ h4, h5, h6 {
   bottom: 0;
   left: 0;
   background-color: var(--base);
-  z-index: 1000;
+  z-index: 100;
   transition: opacity 300ms ease-in-out;
   opacity: 1;
 }
@@ -130,8 +147,13 @@ header {
 
 header h1 {
   font-size: 24px;
-  color: var(--mid-high);
+  color: var(--mid-low);
   margin-left: 10px;
+  cursor: pointer;
+}
+
+header h1:hover {
+  color: var(--mid);
 }
 
 
@@ -158,6 +180,10 @@ header h1 {
   justify-content: space-between;
 }
 
+.theme-switcher label:hover {
+  border-color: var(--mid);
+}
+
 .theme-switcher label svg {
   fill: var(--mid-low);
   padding: 2px 4px 2px 4px;
@@ -177,25 +203,20 @@ header h1 {
 }
 
 .theme-switcher svg.sun {
-  margin-right: 4px;
+  margin-right: 3px;
 }
 
-.theme-switcher input:not(:checked) ~ svg.sun {
+.theme-switcher svg.selected {
   background-color: var(--mid-low);
   fill: var(--base);
 }
 
-.theme-switcher input:not(:checked) ~ svg.moon {
-  background-color: none;
+.theme-switcher label:hover svg.selected {
+  background-color: var(--mid);
 }
 
-.theme-switcher input:checked ~ svg.sun {
-  background-color: none;
-}
-
-.theme-switcher input:checked ~ svg.moon {
-  background-color: var(--mid-low);
-  fill: var(--base);
+.theme-switcher label:hover svg:not(.selected) {
+  fill: var(--mid);
 }
 
 .theme-switcher button {
@@ -204,7 +225,7 @@ header h1 {
   opacity: 0;
   width: 0px;
   margin-left: 0px;
-  transition: opacity 300ms ease-in-out, width 100ms ease-in-out, margin-left 300ms ease-in-out;
+  transition: opacity 300ms ease-in-out, width 100ms ease-in-out, margin-left 200ms ease-in-out;
   cursor: pointer;
 }
 
@@ -222,13 +243,13 @@ header h1 {
 .theme-switcher button span {
   visibility: hidden;
   opacity: 0;
-  background-color: var(--mid-low);
+  background-color: var(--mid);
   position: absolute;
   top: calc(100% + 10px);
   right: 0;
   margin-right: -5px;
   width: 90px;
-  color: var(--white-dark);
+  color: var(--white);
   border-radius: 15px;
   text-align: center;
   padding: 5px 10px 5px 10px;
@@ -237,7 +258,7 @@ header h1 {
 }
 
 .theme-switcher button:hover svg {
-  fill: var(--mid-high);
+  fill: var(--mid);
 }
 
 .theme-switcher button:hover span {
@@ -292,18 +313,20 @@ header h1 {
   100% { background-position: -100%; }
 }
 
+
 .content > .box > .box-overlay > .loader {
   height: 100%;
   width: 100%;
   animation: 0.75s ease-in-out infinite loader;
-  background: linear-gradient(100deg, var(--base-low) 0%, var(--base) 40%, var(--base) 60%, var(--base-low) 100%);
-  background-size: 200%;
   opacity: 1;
   pointer-events: all;
+  background: linear-gradient(100deg, rgba(0,0,0,0) 0%, var(--base) 40%, var(--base) 60%, rgba(0,0,0,0) 100%);
+  background-color: var(--base-low);
+  background-size: 200%;
 }
 
 .content > .box > .box-overlay > .loader.hidden  {
-  transition: opacity 200ms ease-in-out;
+  transition: opacity 300ms ease-in-out;
   opacity: 0;
   pointer-events: none;
 }
@@ -319,7 +342,7 @@ header h1 {
   border-radius: 15px;
   border-bottom-right-radius: 0;
   border-top-left-radius: 0;
-  transition: filter 250ms ease-in-out, padding 250ms ease-in-out;
+  transition: filter 300ms ease-in-out, padding 300ms ease-in-out;
   font-size: 16px;
   background-color: var(--mid-low);
   pointer-events: all;

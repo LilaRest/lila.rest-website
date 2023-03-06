@@ -2,60 +2,63 @@ window.addEventListener("load", function () {
 
   // Retrieve many elements of the book-an-appointment section
   const bookAnAppointment = document.querySelector("#book-an-appointment");
-  console.log(bookAnAppointment);
-  const choices = bookAnAppointment.querySelector("#choices");
-  const quickTalkChoice = bookAnAppointment.querySelector("button#quick-talk-choice");
-  const advisingSessionChoice = bookAnAppointment.querySelector("button#advising-session-choice");
-
-  const overlay = bookAnAppointment.querySelector(".box > .box-overlay");
+  const box = bookAnAppointment.querySelector(".box");
+  const overlay = box.querySelector(".box-overlay");
   const navBackButton = overlay.querySelector("button");
   const loader = overlay.querySelector(".loader");
 
-  const calendars = bookAnAppointment.querySelector("#calendars");
+  const choices = box.querySelector("#choices");
+  const quickTalkChoice = choices.querySelector("#quick-talk-choice");
+  const advisingSessionChoice = choices.querySelector("#advising-session-choice");
+
+  const calendars = box.querySelector("#calendars");
   const quickTalkCalendar = calendars.querySelector("#quick-talk-calendar");
   const advisingSessionCalendar = calendars.querySelector("#advising-session-calendar");
 
+  // Define some state variables
+  let calendarsShown = false;
+
+  // Define a function that hides the loader when the given calendar is ready
   let lastLinkReadyListener = null;
   const hideLoaderWhenReady = (ns) => {
     if (ns.instance && ns.instance.iframeReady) {
-      setTimeout(() => loader.classList.add("hidden"), 500);
+      setTimeout(() => {
+        loader.classList.add("hidden");
+        calendarsShown = true;
+      }, 500);
     }
     else {
       if (lastLinkReadyListener) ns("off", lastLinkReadyListener);
       lastLinkReadyListener = {
         action: "linkReady",
-        callback: () => loader.classList.add("hidden")
+        callback: () => {
+          loader.classList.add("hidden");
+          calendarsShown = true;
+        }
       };
       ns("on", lastLinkReadyListener);
     }
   };
 
-  quickTalkChoice.addEventListener("click", function () {
+  // Define a function that display the given calendar
+  function displayCalendar (ns, cal) {
     loader.classList.remove("hidden");
+    box.style.minHeight = "358px";
     choices.style.display = "none";
     navBackButton.style.display = "flex";
     calendars.style.display = "flex";
-    quickTalkCalendar.style.visibility = "visible";
-    quickTalkCalendar.style.width = "100%";
-    quickTalkCalendar.style.height = "100%";
-    hideLoaderWhenReady(Cal.ns.quickTalk);
-  });
+    cal.style.visibility = "visible";
+    cal.style.width = "100%";
+    cal.style.height = "100%";
+    hideLoaderWhenReady(ns);
+  }
 
-  advisingSessionChoice.addEventListener("click", function () {
+  function hideCalendars () {
+    calendarsShown = false;
     loader.classList.remove("hidden");
-    choices.style.display = "none";
-    navBackButton.style.display = "flex";
-    calendars.style.display = "flex";
-    advisingSessionCalendar.style.visibility = "visible";
-    advisingSessionCalendar.style.width = "100%";
-    advisingSessionCalendar.style.height = "100%";
-    hideLoaderWhenReady(Cal.ns.advisingSession);
-  });
-
-  navBackButton.addEventListener("click", function () {
-    loader.classList.remove("hidden");
-    navBackButton.style.display = "none";
+    box.style.minHeight = "unset";
     choices.style.display = "block";
+    navBackButton.style.display = "none";
     calendars.style.display = "none";
     quickTalkCalendar.style.visibility = "hidden";
     quickTalkCalendar.style.width = "0px";
@@ -64,7 +67,13 @@ window.addEventListener("load", function () {
     advisingSessionCalendar.style.width = "0px";
     advisingSessionCalendar.style.height = "0px";
     loader.classList.add("hidden");
-  });
+  }
+
+  quickTalkChoice.addEventListener("click", () => displayCalendar(Cal.ns.quickTalk, quickTalkCalendar));
+
+  advisingSessionChoice.addEventListener("click", () => displayCalendar(Cal.ns.advisingSession, advisingSessionCalendar));
+
+  navBackButton.addEventListener("click", hideCalendars);
 
   // Load the Cal.com library
   (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; typeof namespace === "string" ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
@@ -189,12 +198,16 @@ window.addEventListener("load", function () {
       callback: (e) => { console.log(e.detail.type); console.log(e); }
     });
 
+    let lastSetTimeout = null;
     onThemeChange(() => {
-      loader.classList.remove("hidden");
+      if (calendarsShown) loader.classList.remove("hidden");
       const newUiArgs = buildUiArgs();
       Cal.ns.quickTalk("ui", newUiArgs);
       Cal.ns.advisingSession("ui", newUiArgs);
-      setTimeout(() => loader.classList.add("hidden"), 1000);
+      if (calendarsShown) {
+        if (lastSetTimeout) clearTimeout(lastSetTimeout);
+        lastSetTimeout = setTimeout(() => loader.classList.add("hidden"), 1500);
+      }
     });
   };
   init();

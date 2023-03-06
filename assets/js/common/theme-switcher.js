@@ -2,7 +2,10 @@ const themeChangeCallbacks = [];
 const onThemeChange = (callback) => themeChangeCallbacks.push(callback);
 
 window.addEventListener("load", function () {
-  const themeSwitcher = document.querySelector(".theme-switcher input");
+  const themeSwitcher = this.document.querySelector(".theme-switcher");
+  const toggle = themeSwitcher.querySelector("input");
+  const sunSvg = themeSwitcher.querySelector("svg.sun");
+  const moonSvg = themeSwitcher.querySelector("svg.moon");
   const resetThemeButton = document.querySelector(".theme-switcher button");
 
   const getExplicitPreference = () => localStorage.getItem("theme");
@@ -22,7 +25,15 @@ window.addEventListener("load", function () {
     document.body.classList.remove(`theme-${otherTheme}`);
     document.body.classList.add(`theme-${theme}`);
 
-    themeSwitcher.checked = theme === "light" ? false : true;
+    toggle.checked = theme === "light" ? false : true;
+    if (theme === "light") {
+      sunSvg.classList.add("selected");
+      moonSvg.classList.remove("selected");
+    }
+    else {
+      moonSvg.classList.add("selected");
+      sunSvg.classList.remove("selected");
+    }
   }
 
   /**
@@ -65,8 +76,8 @@ window.addEventListener("load", function () {
     resetThemeButton.classList.add("shown");
 
   /* Set explicit preference when the user change the theme switcher, also shows the reset button */
-  themeSwitcher.addEventListener("change", () => {
-    setExplicitPreference(themeSwitcher.checked ? "dark" : "light");
+  toggle.addEventListener("change", () => {
+    setExplicitPreference(toggle.checked ? "dark" : "light");
     updateTheme();
     resetThemeButton.classList.add("shown");
   });

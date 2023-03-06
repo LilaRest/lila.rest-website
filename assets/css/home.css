@@ -39,7 +39,7 @@ div#home article#book-an-appointment ul#choices {
 div#home article#book-an-appointment ul#choices button {
   display: flex;
   flex-direction: column;
-  transition: background-color 250ms ease-in-out, padding-left 250ms ease-in-out;
+  transition: background-color 300ms ease-in-out, padding-left 300ms ease-in-out;
   background-color: var(--base-low);
   padding: 16px 20px 20px 20px;
   z-index: 10;
@@ -51,7 +51,13 @@ div#home article#book-an-appointment ul#choices button:hover {
   padding-left: 30px;
 }
 
-div#home article#book-an-appointment ul#choices button h3 {
+div#home article#book-an-appointment ul#choices button .head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+div#home article#book-an-appointment ul#choices button .head h3 {
   font-size: 20px;
   font-weight: 700;
   color: var(--mid-high);
@@ -60,28 +66,27 @@ div#home article#book-an-appointment ul#choices button h3 {
   justify-content: space-between;
 }
 
-div#home article#book-an-appointment ul#choices button h3 div {
+div#home article#book-an-appointment ul#choices button .head .tags {
   margin-top: -1px;
 }
 
-div#home article#book-an-appointment ul#choices button h3 span {
+div#home article#book-an-appointment ul#choices button .head .tags > li {
   padding: 2px 6px 2px 6px;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
   font-size: 14px;
-  color: var(--white-dark);
-  opacity: 0.8;
+  color: var(--white);
   font-weight: 600;
   margin-top: -10px;
 }
 
-div#home article#book-an-appointment ul#choices button h3 span.price {
+div#home article#book-an-appointment ul#choices button .head .tags li.price {
   background-color: var(--blue);
 }
 
-div#home article#book-an-appointment ul#choices button h3 span.duration {
+div#home article#book-an-appointment ul#choices button .head .tags li.duration {
   background-color: var(--orange);
 }
 
