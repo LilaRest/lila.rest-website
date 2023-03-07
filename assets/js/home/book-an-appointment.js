@@ -89,7 +89,7 @@ window.addEventListener("load", function () {
       theme: document.body.classList.contains("theme-light") ? "light" : "dark",
       styles: {
         body: {
-          background: "#00000000",
+          background: bodyStyle.getPropertyValue("--base-low"),
         },
         eventTypeListItem: {
           background: bodyStyle.getPropertyValue("--base-low"),
@@ -191,11 +191,6 @@ window.addEventListener("load", function () {
     Cal.ns.advisingSession("on", {
       action: "linkReady",
       callback: () => fitContent("advisingSession")
-    });
-
-    Cal.ns.advisingSession("on", {
-      action: "*",
-      callback: (e) => { console.log(e.detail.type); console.log(e); }
     });
 
     let lastSetTimeout = null;
