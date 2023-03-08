@@ -4,6 +4,7 @@ window.addEventListener("load", function () {
   const bookAnAppointment = document.querySelector("#book-an-appointment");
   const box = bookAnAppointment.querySelector(".box");
   const overlay = box.querySelector(".box-overlay");
+  const main = box.querySelector(".box-main");
   const navBackButton = overlay.querySelector("button");
   const loader = overlay.querySelector(".loader");
 
@@ -15,8 +16,12 @@ window.addEventListener("load", function () {
   const quickTalkCalendar = calendars.querySelector("#quick-talk-calendar");
   const advisingSessionCalendar = calendars.querySelector("#advising-session-calendar");
 
+  const bookingMessage = box.querySelector("#booking-message");
+  const bookingMessageEventType = bookingMessage.querySelector(".event-type");
+
   // Define some state variables
   let calendarsShown = false;
+  const bookedCalendars = {};
 
   // Define a function that hides the loader when the given calendar is ready
   let lastLinkReadyListener = null;
@@ -29,51 +34,72 @@ window.addEventListener("load", function () {
     }
     else {
       if (lastLinkReadyListener) ns("off", lastLinkReadyListener);
-      lastLinkReadyListener = {
+      const listener = {
         action: "linkReady",
         callback: () => {
           loader.classList.add("hidden");
           calendarsShown = true;
+          ns("off", listener);
         }
       };
+      lastLinkReadyListener = listener;
       ns("on", lastLinkReadyListener);
     }
   };
 
   // Define a function that display the given calendar
   function displayCalendar (ns, cal) {
-    loader.classList.remove("hidden");
-    box.style.minHeight = "358px";
-    choices.style.display = "none";
-    navBackButton.style.display = "flex";
-    calendars.style.display = "flex";
-    cal.style.visibility = "visible";
-    cal.style.width = "100%";
-    cal.style.height = "100%";
-    hideLoaderWhenReady(ns);
+    if (bookedCalendars[ns.instance.namespace]) displayBookingMessage(ns);
+    else {
+      loader.classList.remove("hidden");
+      main.style.minHeight = "358px";
+      choices.style.display = "none";
+      bookingMessage.style.display = "none";
+      navBackButton.style.display = "flex";
+      calendars.style.display = "flex";
+      cal.style.visibility = "visible";
+      cal.style.width = "100%";
+      cal.style.height = "100%";
+      hideLoaderWhenReady(ns);
+    }
   }
 
-  function hideCalendars () {
+  function displayChoices () {
     calendarsShown = false;
     loader.classList.remove("hidden");
-    box.style.minHeight = "unset";
+    main.style.minHeight = "unset";
     choices.style.display = "block";
     navBackButton.style.display = "none";
     calendars.style.display = "none";
+    bookingMessage.style.display = "none";
     quickTalkCalendar.style.visibility = "hidden";
     quickTalkCalendar.style.width = "0px";
     quickTalkCalendar.style.height = "0px";
     advisingSessionCalendar.style.visibility = "hidden";
     advisingSessionCalendar.style.width = "0px";
     advisingSessionCalendar.style.height = "0px";
-    loader.classList.add("hidden");
+    setTimeout(() => loader.classList.add("hidden"), 500);
   }
 
-  quickTalkChoice.addEventListener("click", () => displayCalendar(Cal.ns.quickTalk, quickTalkCalendar));
+  const displayBookingMessage = (ns) => {
+    bookedCalendars[ns.instance.namespace] = true;
+    loader.classList.remove("hidden");
+    main.style.minHeight = "358px";
+    choices.style.display = "none";
+    calendars.style.display = "none";
+    bookingMessage.style.display = "flex";
+    navBackButton.style.display = "flex";
+    let eventType = "Meeting";
+    if (ns.instance.namespace === "quickTalk") eventType = "Quick Talk";
+    if (ns.instance.namespace === "advisingSession") eventType = "Advising Session";
+    bookingMessageEventType.innerText = eventType;
+    setTimeout(() => loader.classList.add("hidden"), 500);
+  };
 
+  quickTalkChoice.addEventListener("click", () => displayCalendar(Cal.ns.quickTalk, quickTalkCalendar));
   advisingSessionChoice.addEventListener("click", () => displayCalendar(Cal.ns.advisingSession, advisingSessionCalendar));
 
-  navBackButton.addEventListener("click", hideCalendars);
+  navBackButton.addEventListener("click", displayChoices);
 
   // Load the Cal.com library
   (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; typeof namespace === "string" ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
@@ -165,7 +191,7 @@ window.addEventListener("load", function () {
 
                 // Remove height and width limit if the current page is the booking form (greater than 400px)
                 if (e.detail.data.iframeHeight > 400) {
-                  frame.style.minWidth = "0px";
+                  frame.style.minWidth = "unset";
                   frame.parentElement.style.maxHeight = "unset";
                 }
 
@@ -204,6 +230,16 @@ window.addEventListener("load", function () {
         lastSetTimeout = setTimeout(() => loader.classList.add("hidden"), 1500);
       }
     });
+
+    Cal.ns.quickTalk("on", {
+      action: "bookingSuccessful",
+      callback: () => displayBookingMessage(Cal.ns.quickTalk)
+    });
+    Cal.ns.advisingSession("on", {
+      action: "bookingSuccessful",
+      callback: () => displayBookingMessage(Cal.ns.advisingSession)
+    });
+
   };
   init();
 });

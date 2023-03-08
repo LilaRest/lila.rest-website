@@ -29,6 +29,7 @@ body.theme-dark {
 
   --orange: #cb4b16a0;
   --blue: #268bd299;
+  --green: #85990099;
 }
 
 body.theme-light {
@@ -42,6 +43,7 @@ body.theme-light {
 
   --orange: #cb4b16bb;
   --blue: #268bd2bb;
+  --green: #859900cc;
 }
 
 * {
@@ -57,6 +59,7 @@ body {
   background-color: var(--base);
   min-height: 100vh;
   min-width: 100vw;
+  color: var(--cont);
 }
 
 body::before {

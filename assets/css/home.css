@@ -120,3 +120,36 @@ div#home article#book-an-appointment ul#calendars > li > cal-inline {
 div#home article#book-an-appointment ul#calendars > li > cal-inline > iframe {
   min-width: 900px; /* If the iframe is smaller than 770px the calendar hour selector will wrap */
 }
+
+div#home article#book-an-appointment #booking-message {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+  position: absolute;
+  inset: 0;
+}
+
+div#home article#book-an-appointment #booking-message .icon {
+  fill: var(--white-light);
+  background-color: var(--green);
+  width: 80px;
+  height: 80px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div#home article#book-an-appointment #booking-message h3 {
+  margin-top: 20px;
+  margin-bottom: 15px;
+  font-size: 25px;
+  color: var(--cont);
+}
+
+div#home article#book-an-appointment #booking-message p {
+  text-align: center;
+  max-width: 450px;
+}

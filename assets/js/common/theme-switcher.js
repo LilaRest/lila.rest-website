@@ -2,7 +2,7 @@ const themeChangeCallbacks = [];
 const onThemeChange = (callback) => themeChangeCallbacks.push(callback);
 
 window.addEventListener("load", function () {
-  const themeSwitcher = this.document.querySelector(".theme-switcher");
+  const themeSwitcher = document.querySelector(".theme-switcher");
   const toggle = themeSwitcher.querySelector("input");
   const sunSvg = themeSwitcher.querySelector("svg.sun");
   const moonSvg = themeSwitcher.querySelector("svg.moon");
@@ -57,19 +57,17 @@ window.addEventListener("load", function () {
 
   /* This function find and apply the theme */
   let lastTheme = null;
-  const updateTheme = () => {
+  const updateTheme = (firstCall = false) => {
     const newTheme = findTheme();
     if (lastTheme !== newTheme) {
       applyTheme(newTheme);
       lastTheme = newTheme;
-      for (const callback of themeChangeCallbacks) {
-        callback();
-      }
+      if (!firstCall) themeChangeCallbacks.forEach(element => element());
     }
   };
 
   /* Call update theme on loading */
-  updateTheme();
+  updateTheme(true);
 
   /* Hide the reset button if no explicit preference is set yet */
   if (getExplicitPreference())
