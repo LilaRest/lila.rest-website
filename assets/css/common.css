@@ -68,13 +68,10 @@ body::before {
   background: repeating-conic-gradient(var(--base-low) 0%, var(--base) 0.7%), repeating-conic-gradient(var(--base) 0.0000001%, var(--mid) 0.000104%) 60% 60%/200vw 200vh;
   z-index: 102;
   pointer-events: none;
-  opacity: 0.11;
+  opacity: 0.05;
   background-blend-mode: difference;
+  filter: brightness(250%);
 }
-
-/* body.theme-dark::before { */
-/*   opacity: 0.1; */
-/* } */
 
 
 h1, h2, h3,
