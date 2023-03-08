@@ -26,12 +26,6 @@ div#home > section#works {
 /* #####################################
    ### "BOOK AN APPOINTMENT" SECTION ### 
    ##################################### */
-
-div#home article#book-an-appointment .box {
-  /* transition: min-height 150ms ease-in-out; */
-  /* min-height: 330px; /1* required for animation, should be smaller than real #choices height *1/ */
-}
-
 div#home article#book-an-appointment ul#choices {
   overflow: hidden;
 }
@@ -124,7 +118,5 @@ div#home article#book-an-appointment ul#calendars > li > cal-inline {
 }
 
 div#home article#book-an-appointment ul#calendars > li > cal-inline > iframe {
-  /* min-width: 770px; /1* If the iframe is smaller than 850px the calendar hour selector will wrap *1/ */
-  min-width: 900px; /* If the iframe is smaller than 850px the calendar hour selector will wrap */
-  filter: opacity(90%);
+  min-width: 900px; /* If the iframe is smaller than 770px the calendar hour selector will wrap */
 }
