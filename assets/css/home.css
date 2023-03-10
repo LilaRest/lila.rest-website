@@ -1,3 +1,19 @@
+/* ############
+   ### BOWL ###
+   ############ */
+body {
+  perspective: 50px;
+}
+
+#bowl {
+  width: 100px;
+  height: 100px;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px, 0px -1px 15px -8px rgba(0, 0, 0, 0.09);
+  border-radius: 100%;
+  position: absolute;
+  transition: border-radius 600ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
 /* ##############
    ### LAYOUT ###
    ############## */
@@ -28,6 +44,13 @@ div#home > section#works {
    ##################################### */
 div#home article#book-an-appointment ul#choices {
   overflow: hidden;
+  background-color: var(--base);
+}
+
+div#home article#book-an-appointment ul#choices > li {
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0px 0px 18px -10px var(--cont) inset;
 }
 
 div#home article#book-an-appointment ul#choices button {
@@ -91,8 +114,8 @@ div#home article#book-an-appointment ul#choices button p {
 
 div#home article#book-an-appointment ul#choices hr {
   border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: var(--mid-low);
+  border-top-width: 7px;
+  border-top-color: var(--base);
 }
 
 div#home article#book-an-appointment ul#calendars {

@@ -52,7 +52,7 @@ window.addEventListener("load", function () {
     if (bookedCalendars[ns.instance.namespace]) displayBookingMessage(ns);
     else {
       loader.classList.remove("hidden");
-      main.style.minHeight = "358px";
+      main.style.minHeight = "351px";
       choices.style.display = "none";
       bookingMessage.style.display = "none";
       navBackButton.style.display = "flex";
@@ -84,7 +84,7 @@ window.addEventListener("load", function () {
   const displayBookingMessage = (ns) => {
     bookedCalendars[ns.instance.namespace] = true;
     loader.classList.remove("hidden");
-    main.style.minHeight = "358px";
+    main.style.minHeight = "351px";
     choices.style.display = "none";
     calendars.style.display = "none";
     bookingMessage.style.display = "flex";
@@ -200,7 +200,7 @@ window.addEventListener("load", function () {
 
                 // Re-enable listening of further route changes
                 ns("on", routeListener);
-              }, 1000);
+              }, 2000);
             }
           };
           ns("on", dimensionListener);
