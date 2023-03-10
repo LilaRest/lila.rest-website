@@ -44,20 +44,30 @@ div#home > section#works {
    ##################################### */
 div#home article#book-an-appointment ul#choices {
   overflow: hidden;
-  background-color: var(--base);
+  /* background-color: var(--base); */
 }
 
 div#home article#book-an-appointment ul#choices > li {
-  border-radius: 18px;
+  border-radius: 6px;
   overflow: hidden;
-  box-shadow: 0px 0px 18px -10px var(--cont) inset;
+  /* box-shadow: */ 
+  background-color: var(--base-low);
+  transition: background-color 300ms ease-in-out;
+}
+
+li:first-of-type {
+  border-top-right-radius: 30px;
+  border-top-left-radius: 30px;
+}
+
+li:last-of-type {
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
 }
 
 div#home article#book-an-appointment ul#choices button {
   display: flex;
   flex-direction: column;
-  transition: background-color 300ms ease-in-out, padding-left 300ms ease-in-out;
-  background-color: var(--base-low);
   padding: 16px 20px 20px 20px;
   z-index: 10;
   cursor: pointer;
@@ -65,7 +75,6 @@ div#home article#book-an-appointment ul#choices button {
 
 div#home article#book-an-appointment ul#choices button:hover {
   background-color: var(--base);
-  padding-left: 30px;
 }
 
 div#home article#book-an-appointment ul#choices button .head {
@@ -115,7 +124,7 @@ div#home article#book-an-appointment ul#choices button p {
 div#home article#book-an-appointment ul#choices hr {
   border-top-style: solid;
   border-top-width: 7px;
-  border-top-color: var(--base);
+  border-top-color: transparent;
 }
 
 div#home article#book-an-appointment ul#calendars {
