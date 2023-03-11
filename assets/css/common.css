@@ -285,41 +285,43 @@ header h1:hover {
 
 /* Content > Box */
 .content > .box {
-  position: relative;
   border-radius: 35px;
-  padding: 9px;
   overflow: hidden;
+  padding: 9px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   backdrop-filter: blur(20px);
 }
 
-/* Content > Box > Background */
-.content > .box > .box-background {
-  z-index: -1;
-  position: absolute;
-  inset: 0;
-  filter: blur(50px);
+/* Content > Box > Inner */
+.content > .box > .box-inner {
+  position: relative;
+  transition: transform 300ms ease-in-out;
+  border-radius: 30px;
+  overflow: hidden;
 }
 
+.content > .box > .box-inner.reduced {
+  transform: scale(50%);
+}
 
-/* Content > Box > Overlay */
-.content > .box > .box-overlay {
+/* Content > Box > Inner > Overlay */
+.content > .box > .box-inner > .box-overlay {
   position: absolute;
-  inset: 9px;
+  inset: 0;
   z-index: 10;
   pointer-events: none;
   border-radius: 30px;
   overflow: hidden;
 }
 
-/* Content > Box > Overlay > Loader */
+/* Content > Box > Inner > Overlay > Loader */
 @keyframes loader {
   0%   { background-position:  100%; }
   100% { background-position: -100%; }
 }
 
 
-.content > .box > .box-overlay > .loader {
+.content > .box > .box-inner > .box-overlay > .loader {
   height: 100%;
   width: 100%;
   animation: 0.75s ease-in-out infinite loader;
@@ -330,14 +332,14 @@ header h1:hover {
   background-size: 200%;
 }
 
-.content > .box > .box-overlay > .loader.hidden  {
+.content > .box > .box-inner > .box-overlay > .loader.hidden  {
   transition: opacity 300ms ease-in-out;
   opacity: 0;
   pointer-events: none;
 }
 
-/* Content > Box > Overlay > Button */
-.content > .box > .box-overlay > button {
+/* Content > Box > Inner > Overlay > Button */
+.content > .box > .box-inner > .box-overlay > button {
   position: absolute;
   inset: auto auto -4px -4px;
   display: none;
@@ -362,15 +364,16 @@ header h1:hover {
   fill: var(--mid);
 }
 
-.content > .box > .box-overlay > button:hover {
+.content > .box > .box-inner > .box-overlay > button:hover {
   background-color: var(--mid-low);
   color: var(--base-low);
   fill: var(--base-low);
 }
 
-/* Content > Box > Main */
-.content > .box > .box-main {
+/* Content > Box > Inner > Main */
+.content > .box > .box-inner > .box-main {
   /* background-color: var(--base-low); */
   border-radius: 30px;
   overflow: hidden;
+  transition: transform 300ms ease-in-out; /* Used when the bowl get under the main content */
 }
