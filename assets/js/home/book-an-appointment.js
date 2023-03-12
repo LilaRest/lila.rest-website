@@ -190,17 +190,17 @@ window.addEventListener("load", function () {
               setTimeout(() => {
 
                 // Remove height and width limit if the current page is the booking form (greater than 400px)
-                if (e.detail.data.iframeHeight > 400) {
+                if (e.detail.data.iframeHeight > 450) {
                   frame.style.minWidth = "unset";
-                  frame.parentElement.style.maxHeight = "unset";
                 }
+                frame.parentElement.style.maxHeight = "unset";
 
                 // Hide the loading screen
                 loader.classList.add("hidden");
 
                 // Re-enable listening of further route changes
                 ns("on", routeListener);
-              }, 2000);
+              }, 1000);
             }
           };
           ns("on", dimensionListener);
