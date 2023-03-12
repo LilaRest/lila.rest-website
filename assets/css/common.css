@@ -290,15 +290,25 @@ header h1:hover {
   padding: 9px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   backdrop-filter: blur(20px);
+  transition: padding 600ms cubic-bezier(.68,-0.55,.27,1.55);
+}
+
+.content > .box.retracted {
+  padding: 18px;
 }
 
 /* Content > Box > Inner */
 .content > .box > .box-inner {
   position: relative;
-  transition: transform 300ms ease-in-out;
+  transition: filter 300ms ease-in-out;
   border-radius: 30px;
   overflow: hidden;
 }
+
+.content > .box.retracted > .box-inner {
+  filter: opacity(50%);
+}
+
 
 .content > .box > .box-inner.reduced {
   transform: scale(50%);

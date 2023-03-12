@@ -50,17 +50,15 @@ div#home article#book-an-appointment ul#choices {
 div#home article#book-an-appointment ul#choices > li {
   border-radius: 6px;
   overflow: hidden;
-  /* box-shadow: */ 
   background-color: var(--base-low);
   transition: background-color 300ms ease-in-out;
 }
-
-li:first-of-type {
+div#home article#book-an-appointment ul#choices > li:first-of-type {
   border-top-right-radius: 30px;
   border-top-left-radius: 30px;
 }
 
-li:last-of-type {
+div#home article#book-an-appointment ul#choices > li:last-of-type {
   border-bottom-right-radius: 30px;
   border-bottom-left-radius: 30px;
 }
@@ -125,6 +123,11 @@ div#home article#book-an-appointment ul#choices hr {
   border-top-style: solid;
   border-top-width: 7px;
   border-top-color: transparent;
+  transition: border-top-width 600ms cubic-bezier(.68,-0.55,.27,1.55);
+}
+
+div#home article#book-an-appointment .box.retracted ul#choices hr {
+  border-top-width: 14px; 
 }
 
 div#home article#book-an-appointment ul#calendars {

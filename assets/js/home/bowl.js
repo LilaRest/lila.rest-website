@@ -48,6 +48,14 @@ window.addEventListener("load", function () {
   b.style.height = bSize + "px";
   b.style.width = bSize + "px";
 
+  // Retrieve boxes and get their positions
+  let boxes = [];
+  document.querySelectorAll(".box").forEach(box => {
+    boxes.push({
+      el: box,
+      retracted: false
+    });
+  });
 
   function updateBounds () {
     dirs.up.bound = scrollY;
@@ -166,6 +174,30 @@ window.addEventListener("load", function () {
       // - Bottom-right
       if (bTop > dirs.down.bound - 10 && bLeft > dirs.right.bound - 10) b.style.borderBottomRightRadius = "15px";
       else b.style.borderBottomRightRadius = "100%";
+
+      // Handle boxes retraction
+      boxes.forEach(box => {
+        if (!box.retracted) {
+          if (
+            box.el.offsetTop <= (bTop + bSize) &&
+            (box.el.offsetTop + box.el.offsetHeight) >= bTop &&
+            box.el.offsetLeft <= (bLeft + bSize) &&
+            (box.el.offsetLeft + box.el.offsetWidth) >= bLeft) {
+            box.el.classList.add("retracted");
+            box.retracted = true;
+          }
+        }
+        else {
+          if (
+            box.el.offsetTop > (bTop + bSize) ||
+            (box.el.offsetTop + box.el.offsetHeight) < bTop ||
+            box.el.offsetLeft > (bLeft + bSize) ||
+            (box.el.offsetLeft + box.el.offsetWidth) < bLeft) {
+            box.el.classList.remove("retracted");
+            box.retracted = false;
+          }
+        }
+      });
     }
   }
 
