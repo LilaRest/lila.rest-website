@@ -1,14 +1,16 @@
 window.addEventListener("load", function () {
 
-  // Variables & Constants
+  // Settings
   const b = document.querySelector("#bowl");
   let bLeft = 0;
-  let bTop = innerHeight;
+  let bTop = 0;
   let bSize = 100;
-  let bMaxVelocity = 20;
-  let bInertia = 10 / 100; // In percentage (%)
-  let bImpactEnergyLoss = 25 / 100;
+  let bMaxVelocity = 25;
+  let bMinVelocity = 0.5;
+  let bInertia = 10 / 100; // In % | The lower the heavier the bowl is
+  let bImpactEnergyLoss = 50 / 100; // In % | The higher the higher the loss is
 
+  // Variables, constants & objects used by the program
   let dirs = {
     up: {
       pressed: false,
@@ -33,6 +35,13 @@ window.addEventListener("load", function () {
   };
   let lastMovementInterval = null;
 
+  const diags = {
+    up: ["left", "right"],
+    right: ["up", "down"],
+    down: ["left", "right"],
+    left: ["up", "down"],
+  };
+
   // Initialize bowl position and size
   b.style.left = bLeft + "px";
   b.style.top = bTop + "px";
@@ -46,53 +55,74 @@ window.addEventListener("load", function () {
     dirs.down.bound = scrollY + innerHeight - bSize;
     dirs.left.bound = scrollX;
   }
-  updateBounds();
 
-
-  function apply (dir) {
+  function applyDistance (dir, distance) {
     switch (dir) {
       case "up":
-        bTop -= dirs[dir].velocity;
+        bTop -= distance;
         break;
       case "right":
-        bLeft += dirs[dir].velocity;
+        bLeft += distance;
         break;
       case "down":
-        bTop += dirs[dir].velocity;
+        bTop += distance;
         break;
       case "left":
-        bLeft -= dirs[dir].velocity;
+        bLeft -= distance;
         break;
     }
   }
 
+  function applyDirs (changedDirs) {
+    for (const dir of changedDirs) {
+      let appliedDistance = dirs[dir].velocity;
+      diags[dir].forEach((diag) => {
+        if (changedDirs.includes(diag)) appliedDistance /= 1.5;
+      });
+      applyDistance(dir, appliedDistance);
+    }
+  }
+
+  function getOpposedDir (dir) {
+    switch (dir) {
+      case "up": return "down";
+      case "right": return "left";
+      case "down": return "up";
+      case "left": return "right";
+    }
+  }
+
   function updatePosition () {
+    // Update bowl bounds
     updateBounds();
 
+    // Save old bTop and bLeft values for later comparison
     const oldBTtop = bTop;
     const oldBLeft = bLeft;
 
-    for (const dir of ["up", "right", "down", "left"]) {
-      if (dirs[dir].pressed) {
-        if (dirs[dir].velocity >= 0.1) {
-          const newVelocity = dirs[dir].velocity *= 1 + bInertia;
-          if (newVelocity > bMaxVelocity) dirs[dir].velocity = bMaxVelocity;
-          else dirs[dir].velocity = newVelocity;
+    // Update the directions velocity
+    let changedDirs = [];
+    for (const dir of Object.keys(dirs)) {
+      const oppDir = getOpposedDir(dir);
+      if (dirs[dir].pressed && !dirs[oppDir].pressed) {
+        if (dirs[dir].velocity >= bMinVelocity) {
+          dirs[dir].velocity = dirs[dir].velocity *= 1 + bInertia;
+          if (dirs[dir].velocity > bMaxVelocity) dirs[dir].velocity = bMaxVelocity;
         }
-        else dirs[dir].velocity = 0.1;
-        apply(dir);
+        else dirs[dir].velocity = bMinVelocity;
+        changedDirs.push(dir);
       }
-      else if (dirs[dir].velocity >= 0.1) {
+      else if (dirs[dir].velocity >= bMinVelocity) {
         dirs[dir].velocity /= 1 + bInertia;
-        apply(dir);
+        changedDirs.push(dir);
       }
     }
+    applyDirs(changedDirs);
 
     // Prevent the bowl from crossing bounds and handle bouncing
     if (bTop <= dirs.up.bound) {
       bTop = dirs.up.bound;
       dirs.down.velocity = dirs.up.velocity / (1 + bImpactEnergyLoss);
-      // if (dirs.down.velocity < 0.5) dirs.down.velocity = 0;
       dirs.up.velocity = 0;
     }
     else if (bTop >= dirs.down.bound) {
@@ -142,7 +172,7 @@ window.addEventListener("load", function () {
 
   function updateMovement () {
     if (lastMovementInterval) clearInterval(lastMovementInterval);
-    lastMovementInterval = setInterval(updatePosition, 10);
+    lastMovementInterval = setInterval(updatePosition, 20);
   }
 
   function onKeyEvent (e) {
