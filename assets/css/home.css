@@ -74,10 +74,10 @@ div#home article#book-an-appointment ul#choices button {
 }
 
 div#home article#book-an-appointment ul#choices button:hover {
-  /* background-color: var(--base); */
-  filter: brightness(105%);
-  box-shadow: inset 6px 6px 7px #e7e1cf,
-            inset -6px -6px 7px #f5efdb;
+  background-color: var(--base);
+  /* filter: brightness(200%); */
+  /* box-shadow: inset 6px 6px 7px #e7e1cf, */
+            /* inset -6px -6px 7px #f5efdb; */
 }
 
 div#home article#book-an-appointment ul#choices button .head {

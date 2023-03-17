@@ -20,6 +20,8 @@ body {
   --z-index-bg: -1;
   --z-index-bowl: 1;
   --z-index-fg: 2;
+  --z-index-loading-screen: 3;
+  --z-index-noise-filter: 4;
 }
 
 body.theme-dark {
@@ -59,10 +61,6 @@ body.theme-light {
   transition: background-color 300ms ease-in-out, color 300ms ease-in-out, border-color 300ms ease-in-out, fill 300ms ease-in-out;
 }
 
-html {
-  /* filter: contrast(115%); */
-}
-
 body {
   font-family: "Noto Sans Mono";
   background-color: var(--base);
@@ -75,10 +73,8 @@ body::before {
   content: "";
   position: absolute;
   inset: 0;
-  /* background: repeating-conic-gradient(var(--base-low) 0%, var(--base) 0.7%), repeating-conic-gradient(var(--base) 0.0000001%, var(--mid) 0.000104%) 60% 60%/200vw 200vh, radial-gradient(var(--cont), var(--base)); */
-
   background: repeating-conic-gradient(var(--base-low) 0%, var(--base) 0.7%), repeating-conic-gradient(var(--base) 0.0000001%, var(--mid) 0.000104%) 60% 60%/200vw 200vh;
-  z-index: 102;
+  z-index: var(--z-index-noise-filter);
   pointer-events: none;
   opacity: 0.05;
   background-blend-mode: difference;
@@ -99,15 +95,16 @@ h4, h5, h6 {
   position: absolute;
   inset: 0;
   background-color: var(--base);
-  z-index: 100;
-  transition: opacity 300ms ease-in-out;
+  z-index: var(--z-index-loading-screen);
   opacity: 1;
+  transition: opacity 300ms ease-in-out;
+  filter: contrast(101%); /* Used to ensure the z-index is respected */
 }
 
 .loading-screen,
 .loading-screen .content {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -136,7 +133,6 @@ h4, h5, h6 {
   transition-duration: 300ms;
   transition-timing-function: ease-in-out;
 }
-
 
 /* ##############
    ### HEADER ###
@@ -198,7 +194,7 @@ header h1:hover {
 .theme-switcher label input {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  /* z-index: 2; */
   opacity: 0;
 }
 
@@ -326,7 +322,7 @@ header h1:hover {
 .content > .box > .box-inner > .box-overlay {
   position: absolute;
   inset: 0;
-  z-index: 10;
+  z-index: calc(var(--z-index-fg) + 1);
   pointer-events: none;
   border-radius: 30px;
   overflow: hidden;

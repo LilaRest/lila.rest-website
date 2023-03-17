@@ -19,46 +19,46 @@
   </head>
 
   <body class="{{body_class}} theme-light">
-      <div class="loading-screen">
-        <div class="content">
-          <div class="box">
-            <div class="box-overlay">
-              <div class="loader"></div>
-            </div>
+    <div class="loading-screen">
+      <div class="content">
+        <div class="box">
+          <div class="box-overlay">
+            <div class="loader"></div>
           </div>
-          <h2>Lila Rest</h2>
         </div>
+        <h2>Lila Rest</h2>
       </div>
+    </div>
 
-      <header>
-        <h1><a href="/">{{meta_title}}</a></h1>
-        <div class="theme-switcher">
-          <label for="toggle">
-            <input id="toggle" class="toggle-switch" type="checkbox">
+    <header>
+      <h1><a href="/">{{meta_title}}</a></h1>
+      <div class="theme-switcher">
+        <label for="toggle">
+          <input id="toggle" class="toggle-switch" type="checkbox">
 
-            <svg class="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></svg>
-            
-            <svg class="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11.38 2.019a7.5 7.5 0 1 0 10.6 10.6C21.662 17.854 17.316 22 12.001 22 6.477 22 2 17.523 2 12c0-5.315 4.146-9.661 9.38-9.981z"/></svg>
-          </label>
-          <button>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M5.463 4.433A9.961 9.961 0 0 1 12 2c5.523 0 10 4.477 10 10 0 2.136-.67 4.116-1.81 5.74L17 12h3A8 8 0 0 0 6.46 6.228l-.997-1.795zm13.074 15.134A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12c0-2.136.67-4.116 1.81-5.74L7 12H4a8 8 0 0 0 13.54 5.772l.997 1.795z"/></svg>
-            <span>Reset to OS theme</span>
-          </button>
-        </div>
-      </header>
+          <svg class="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></svg>
+          
+          <svg class="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11.38 2.019a7.5 7.5 0 1 0 10.6 10.6C21.662 17.854 17.316 22 12.001 22 6.477 22 2 17.523 2 12c0-5.315 4.146-9.661 9.38-9.981z"/></svg>
+        </label>
+        <button>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M5.463 4.433A9.961 9.961 0 0 1 12 2c5.523 0 10 4.477 10 10 0 2.136-.67 4.116-1.81 5.74L17 12h3A8 8 0 0 0 6.46 6.228l-.997-1.795zm13.074 15.134A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12c0-2.136.67-4.116 1.81-5.74L7 12H4a8 8 0 0 0 13.54 5.772l.997 1.795z"/></svg>
+          <span>Reset to OS theme</span>
+        </button>
+      </div>
+    </header>
 
-      <main>
-        {{!-- Main content inserted by children --}}
-        {{{body}}}
-      </main>
+    <main>
+      {{!-- Main content inserted by children --}}
+      {{{body}}}
+    </main>
 
-      <footer>
-        <script src="assets/js/common/loader.js"></script>
-        <script src="assets/js/common/theme-switcher.js" async defer></script>
+    <footer>
+      <script src="assets/js/common/loader.js"></script>
+      <script src="assets/js/common/theme-switcher.js" async defer></script>
 
-        {{!-- Foot code injection --}}
-        {{ghost_foot}} {{!-- FROM SETTINGS  --}}
-        {{{block "foot"}}} {{!-- FROM CHILDREN TEMPLATES --}}
-      </footer>
+      {{!-- Foot code injection --}}
+      {{ghost_foot}} {{!-- FROM SETTINGS  --}}
+      {{{block "foot"}}} {{!-- FROM CHILDREN TEMPLATES --}}
+    </footer>
   </body>
   
